@@ -8,7 +8,7 @@ const get_user = async (request, reply) => {
     const return_data = await user_model.findMany(request.body);
     reply.send({data:return_data});
   } catch (e) {
-    return reply.code(500).send({ error: error });
+    return reply.code(500).send({ error: e });
   }
 };
 
