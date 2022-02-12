@@ -10,7 +10,36 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Installing
 
-install by 
+A step by step series of examples that tell you how to get a development env running.
+
+
+1. Change .environment-example to .env and setup like this
+
+    ```APP_NAME="Fastify BoilerPlate"``` -> Your app name
+    ```APP_ENV=local``` -> Your app environment (local, staging, production)
+    ```APP_KEY=base64:eg93JlIlVeqLgD5zUhpkLlEjWhs+PA==``` -> your app security key (for jwt purposes)
+    ```APP_DEBUG=true``` -> (flag for showing all errors)
+    ```HOST="http://127.0.0.1"``` -> Your Host
+    ```PORT=1900``` -> Your PORT
+
+    ```APP_VERSION="${APP_NAME}/1.0.0"```  -> Your API or APP Version
+    ```API_ROUTE="/api/v1"```  -> Your root API path (appended after HOST)
+
+    ```#mongodb urls go like this - "mongodb://<username>:<password>@<host>:<port>/<collection-name>?authSource=admin&retryWrites=true&w=majority"```
+    #DATABASE_URL=''
+
+    ```#Dev MYSQL database access - mysql://<username>:<password>@<host>:<port>/<collection-name>```
+    DATABASE_URL=''
+
+    ```LOG_CHANNEL=stack``` -> Your Logging type
+
+    -> if you are using twilio then enter these ids too.
+
+    ```TWILIO_ACCOUNT_SID=""
+    TWILIO_AUTH_TOKEN=""
+    TWILIO_PHONE=""```
+
+2. install all the dependencies by 
 
 ``` npm install ```
 
@@ -18,36 +47,8 @@ install by
 
 ```npx prisma db push ``` after you make changes to ```prisma/schema.prisma``` file.
 
-A step by step series of examples that tell you how to get a development env running.
 
-
-1. Change .environment-example to .env and setup like this
-```
-    APP_NAME="Fastify BoilerPlate" -> Your app name
-    APP_ENV=local -> Your app environment (local, staging, production)
-    APP_KEY=base64:eg93JlIlVeqLgD5zUhpkLlEjWhs+PA== -> your app security key (for jwt purposes)
-    APP_DEBUG=true -> (flag for showing all errors)
-    HOST="http://127.0.0.1" -> Your Host
-    PORT=1900 -> Your PORT
-
-    APP_VERSION="${APP_NAME}/1.0.0"  -> Your API or APP Version
-    API_ROUTE="/api/v1"  -> Your root API path (appended after HOST)
-
-    #mongodb urls go like this - "mongodb://<username>:<password>@<host>:<port>/<collection-name>?authSource=admin&retryWrites=true&w=majority"
-    #DATABASE_URL=''
-
-    #Dev MYSQL database access - mysql://<username>:<password>@<host>:<port>/<collection-name>
-    DATABASE_URL='mysql://<username>:<password>@<host>:<port>/<collection-name>'
-
-    LOG_CHANNEL=stack -> Your Logging type
-
-    -> if you are using twilio then enter these ids too.
-
-    TWILIO_ACCOUNT_SID=""
-    TWILIO_AUTH_TOKEN=""
-    TWILIO_PHONE=""
-```
-2. Folder Structure:
+3. Your Folder Structure:
 
 ```prisma``` consists of all your DB related work and you should define all your DB Architectures here , Refer to Prisma doc at https://www.prisma.io/docs/guides for more information
 
