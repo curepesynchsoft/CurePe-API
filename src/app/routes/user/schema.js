@@ -1,4 +1,4 @@
-const response_mediums = require("../schemas/common/response_codes");
+const response_mediums = require("../schemas/common/response");
 
 const user_creation_schema = {
     type: 'object',
