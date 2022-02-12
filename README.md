@@ -42,10 +42,12 @@ A step by step series of examples that tell you how to get a development env run
     ```LOG_CHANNEL=stack``` -> Your Logging type
 
     -> if you are using twilio then enter these ids too.
-    
-    ```TWILIO_ACCOUNT_SID=""
+
+    ``` 
+    TWILIO_ACCOUNT_SID=""
     TWILIO_AUTH_TOKEN=""
-    TWILIO_PHONE=""```
+    TWILIO_PHONE="" 
+    ```
 
 2. install all the dependencies by 
 
