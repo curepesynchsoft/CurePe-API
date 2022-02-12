@@ -9,6 +9,15 @@ const error_schema = {
     error: { type: "object", default: {}, additionalProperties: true }
   },
 };
+const forbidden = {
+  description: 'Forbidden',
+  type: 'object',
+  properties: {
+      status:{type:'boolean', default: false},
+      message:{type:'string',default:app_constants.FORBIDDEN_REQUEST},
+      error: { type: "object", default: {}, additionalProperties: true }
+  },
+};
 const unprocessable_entity = {
   description: 'Unprocessable Entity',
   type: 'object',
@@ -36,4 +45,4 @@ const not_found ={
   },
 };
 
-module.exports = {error_schema,unprocessable_entity,bad_request,not_found} ;
+module.exports = {error_schema,forbidden,unprocessable_entity,bad_request,not_found} ;

@@ -52,6 +52,16 @@ class Repository {
   async findMany(whereClause = {}, projection = {}) {
     return this.model.findMany(whereClause, projection);
   }
+
+  /**
+   *
+   * @param whereClause
+   * @param projection
+   * @returns {Promise<*>}
+   */
+   async delete(whereClause = {}, projection = {}) {
+    return this.model.delete(whereClause, projection);
+  }
 }
 
 module.exports = Repository;

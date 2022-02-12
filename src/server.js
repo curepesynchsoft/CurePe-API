@@ -61,6 +61,8 @@ const run = (app) =>
       app.log.error(err);
       process.exit(1);
     }
+    global.app=app;
+    // global app for fastify
     console.group("fastify-initilization ⚡");
     console.warn("Server is now listening on", address);
     console.groupEnd("fastify-initilization");

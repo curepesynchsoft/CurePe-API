@@ -6,9 +6,9 @@ const get_user = async (request, reply) => {
   // run a model
   try {
     const return_data = await user_model.findMany(request.body);
-    reply.send({data:return_data});
-  } catch (e) {
-    return reply.code(500).send({ error: e });
+    reply.send({ data: return_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
   }
 };
 

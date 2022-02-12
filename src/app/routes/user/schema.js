@@ -1,4 +1,5 @@
 const response_mediums = require("../schemas/common/response");
+const header_mediums = require("../schemas/common/header");
 
 const user_creation_schema = {
     type: 'object',
@@ -44,15 +45,7 @@ module.exports = {
         description: 'Get the User details',
         tags: ['Authentication'],
         summary: 'User details',
-        // params: {
-        //     type: 'object',
-        //     properties: {
-        //         id: {
-        //             type: 'string',
-        //             description: 'User id'
-        //         }
-        //     }
-        // },
+        headers: header_mediums,
         response: response_mediums
     }
 };
