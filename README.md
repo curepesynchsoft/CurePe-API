@@ -30,17 +30,19 @@ A step by step series of examples that tell you how to get a development env run
     ```APP_VERSION="${APP_NAME}/1.0.0"```  -> Your API or APP Version
 
     ```API_ROUTE="/api/v1"```  -> Your root API path (appended after HOST)
-    
+
     ```#mongodb urls go like this - "mongodb://<username>:<password>@<host>:<port>/<collection-name>?authSource=admin&retryWrites=true&w=majority"```
+    
     #DATABASE_URL=''
 
     ```#Dev MYSQL database access - mysql://<username>:<password>@<host>:<port>/<collection-name>```
+    
     DATABASE_URL=''
 
     ```LOG_CHANNEL=stack``` -> Your Logging type
 
     -> if you are using twilio then enter these ids too.
-
+    
     ```TWILIO_ACCOUNT_SID=""
     TWILIO_AUTH_TOKEN=""
     TWILIO_PHONE=""```
