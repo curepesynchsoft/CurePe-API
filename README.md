@@ -16,15 +16,21 @@ A step by step series of examples that tell you how to get a development env run
 1. Change .environment-example to .env and setup like this
 
     ```APP_NAME="Fastify BoilerPlate"``` -> Your app name
+    
     ```APP_ENV=local``` -> Your app environment (local, staging, production)
+
     ```APP_KEY=base64:eg93JlIlVeqLgD5zUhpkLlEjWhs+PA==``` -> your app security key (for jwt purposes)
+
     ```APP_DEBUG=true``` -> (flag for showing all errors)
+
     ```HOST="http://127.0.0.1"``` -> Your Host
+
     ```PORT=1900``` -> Your PORT
 
     ```APP_VERSION="${APP_NAME}/1.0.0"```  -> Your API or APP Version
-    ```API_ROUTE="/api/v1"```  -> Your root API path (appended after HOST)
 
+    ```API_ROUTE="/api/v1"```  -> Your root API path (appended after HOST)
+    
     ```#mongodb urls go like this - "mongodb://<username>:<password>@<host>:<port>/<collection-name>?authSource=admin&retryWrites=true&w=majority"```
     #DATABASE_URL=''
 
