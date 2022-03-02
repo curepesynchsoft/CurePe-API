@@ -25,7 +25,7 @@ const create_user = async (request, reply) => {
 // Create User
 const login_user = async (request, reply) => {
   // run a model
-  // try {
+  try {
   const user = {
     email: request.body.email,
     passkey: request.body.passkey,
@@ -38,9 +38,9 @@ const login_user = async (request, reply) => {
   );
   // console.log(return_data)
   return reply.send({ data: return_data });
-  // } catch (error) {
-  //   return reply.code(422).send({ error: { ...error } });
-  // }
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
 };
 
 // fETCH uSER DETAILS
