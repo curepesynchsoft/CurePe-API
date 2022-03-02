@@ -14,9 +14,8 @@ datasource db {
 model User {
   id Int  @id @default(autoincrement())
   full_name String @default("") 
-  username String @unique 
-  email String  @default("") 
-  phone String @unique
+  email String @unique 
+  dob String
   otp Int @default(1) 
   passkey String
   time_zone String @default("UTC")

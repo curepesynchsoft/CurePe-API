@@ -58,6 +58,9 @@ const run = (app) =>
   app.listen(process.env.PORT, process.env.HOST, function (err, address) {
     if (err) {
       console.log(informational_constant.SERVER_OFFLINE);
+
+      console.log(err)
+      
       app.log.error(err);
       process.exit(1);
     }
