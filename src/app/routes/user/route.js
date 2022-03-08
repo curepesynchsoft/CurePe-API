@@ -6,15 +6,37 @@ const schema = require("../user/schema");
  */
 module.exports = function (fastify, opts, done) {
 
-  //Route for User create
-  fastify.post("/register",{
-    schema: schema.create,
-    handler: controller.create_user
+  fastify.post("/mobile-login", {
+    schema: schema.mobile_login,
+    handler: controller.mobile_login,
   });
 
-  fastify.post("/login",{
-    schema: schema.login,
-    handler: controller.login_user
+  //varify otp
+  fastify.post("/verify-otp", {
+    schema: schema.verify_otp,
+    handler: controller.verify_through_otp,
+  });
+
+  //Route for User create
+  // fastify.post("/register",{
+  //   schema: schema.create,
+  //   handler: controller.create_user
+  // });
+
+  // fastify.post("/login",{
+  //   schema: schema.login,
+  //   handler: controller.login_user
+  // });
+  fastify.post("/update_user",{
+    onRequest: [fastify.authenticate],
+    schema:schema.update,
+    handler: controller.update_User
+  });
+
+  fastify.post("/add_members",{    
+    onRequest: [fastify.authenticate],
+    schema:schema.add_member,
+    handler: controller.add_members
   });
 
   fastify.get("/users", {

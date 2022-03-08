@@ -12,16 +12,34 @@ datasource db {
 }
 
 model User {
-  id Int  @id @default(autoincrement())
-  full_name String @default("") 
-  email String @unique 
-  dob String
-  otp Int @default(1) 
-  passkey String
-  time_zone String @default("UTC")
-  remember_token Boolean @default(false)
-  verified Boolean @default(false)
-  has_preferences Boolean @default(false)
-  created_at        DateTime           @default(now())
-  updated_at        DateTime           @updatedAt
+  id                  Int           @id @default(autoincrement())
+  full_name           String        @default("")
+  email               String        @default("noemail@omni-plays.com")
+  phone               String        @unique
+  gender              String        @default("")
+  otp                 Int           @default(1)
+  dob                 String        @default("02/2/2000")
+  passkey             String        @default("")
+  time_zone           String        @default("UTC")
+  remember_token      Boolean       @default(false)
+  verified            Boolean       @default(false)
+  skipped_preferences Boolean       @default(false)
+  has_preferences     Boolean       @default(false)
+  created_at          DateTime      @default(now())
+  updated_at          DateTime      @updatedAt
+
+  user_relatives      User_relatives[]
+}
+
+model User_relatives {
+  id                   Int @id       @default(autoincrement())
+  full_name            String
+  gender               String 
+  dob                  String        
+  relation             String
+  created_at           DateTime      @default(now())
+  updated_at           DateTime      @updatedAt
+  userId Int 
+  user User @relation(fields: [userId], references: [id])
+
 }
