@@ -9,7 +9,7 @@ let utilites = require("../../common-helpers/utilities");
 // let twilio_client = require("../../services/twilio");
 // messages constants
 let messages = require("../../constants/messages");
-const { upload } = require("../../../server");
+
 const { ModelBuildContext } = require("twilio/lib/rest/autopilot/v1/assistant/modelBuild");
 const response = require("../../routes/schemas/common/response");
 
@@ -17,7 +17,7 @@ const response = require("../../routes/schemas/common/response");
 // Create User
 const create_user = async (request, reply) => {
   // run a model
-  // try {
+  try {
   const new_user = {
     full_name: request.body.full_name,
     gender: request.body.gender,
@@ -30,31 +30,11 @@ const create_user = async (request, reply) => {
    // generate token
    const token = global.app.jwt.sign( return_data );
   return reply.send({ data:{ token } });
-  // } catch (error) {
-  //   return reply.code(422).send({ error: { ...error } });
-  // }
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
 };
 
-// login user
-// const login_user = async (request, reply) => {
-//   // run a model
-//   try {
-//   const user = {
-//     email: request.body.email,
-//     passkey: request.body.passkey,
-//   }
-//   const return_data = await user_model.findUnique(
-//     {
-//       email: user.email,
-//     },
-//   );
-//   const token = global.app.jwt.sign( return_data );
-//   return reply.send({ data:{ token } });
-//   // console.log(return_data)
-//   } catch (error) {
-//     return reply.code(422).send({ error: { ...error } });
-//   }
-// };
 
 // Verify OTP
 const mobile_login = async (request, reply) => {
@@ -114,9 +94,9 @@ const sendTwilioSMS = async (phone, otp) => {
 
 const createUser = async (request, reply) => {
   const new_user = {
+    full_name: request.body.full_name,
     phone: request.body.phone,
     otp: utilites.GenerateOTP(),
-    ...request.body,
   };
   try {
     const return_data = await user_model.create(new_user);
@@ -127,29 +107,25 @@ const createUser = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-const updateUser = async (request, reply) => {
-  try {
-    const update_document = {
-      ...request.body,
-    };
-    user = await user_model.update({ id: request.user.id }, update_document);
-    // return the response here
-    return reply.send({ data: { user } });
-  } catch (error) {
-    return reply.code(422).send({ error: { ...error } });
-  }
-};
+// const updateUser = async (request, reply) => {
+//   try {
+//     const update_document = {
+//       ...request.body,
+//     };
+//     user = await user_model.update({ id: request.user.id }, update_document);
+//     // return the response here
+//     return reply.send({ data: { user } });
+//   } catch (error) {
+//     return reply.code(422).send({ error: { ...error } });
+//   }
+// };
 
 // Verify OTP
 const verify_through_otp = async (request, reply) => {
   // run a model
   try {
     const user = await user_model.findUnique(
-      { phone: request.body.phone },
-      // {
-      //   wallet: true,
-      //   preferences: true,
-      // }
+      { phone: request.body.phone }
     );
     if (user.otp === request.body.otp) {
       if (!user.verified) {
@@ -171,15 +147,19 @@ const verify_through_otp = async (request, reply) => {
 // update user values
 const update_User = async (request, reply) => {
   try {
-    // avatar = upload.single(request.file.avatar)
-    // console.log(avatar)
     const update_document = {
       full_name : request.body.full_name,
       gender :request.body.gender,
       dob: request.body.dob,
-      // avatar: avatar
+      health_id: request.body.health_id
     };
     const user = await user_model.update({ id: request.user.id }, update_document);
+    if(user) {      
+      const user_relative = await user_relative_model.findUnique(
+        { phone: request.user.phone }
+      )
+      // console.log(user_relative)
+    }
     // return the response here
     return reply.send({ data: { user } });
   } catch (error) {
@@ -189,20 +169,28 @@ const update_User = async (request, reply) => {
 
 // add relatives
 const add_members = async (request, reply) =>{
-  const return_data = await user_model.findUnique({id:request.user.id});
-  if(return_data) {
-    const new_member = {
-      userId: request.user.id,
-      full_name: request.body.full_name,
-      gender:  request.body.gender,
-      dob: request.body.dob,
-      relation: request.body.relation
-    };
-    const add = await user_relative_model.create(new_member)
+  let response = []
+  try {
+    const return_data = await user_model.findUnique({id:request.user.id});
+    if(return_data) {
+      const new_member = {
+        userId: request.user.id,
+        full_name: request.body.full_name,
+        phone: request.body.phone,
+        gender:  request.body.gender,
+        dob: request.body.dob,
+        relation: request.body.relation
+      };
+      response.add_members = await user_relative_model.create(new_member)
+      if (response.add_members) {
+        response.user = await createUser(request, reply);
+      }
+      return reply.send({ data:{ ...response } });
+    }
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
   }
-  // console.log(add)
-  return reply.send({ data:{ add } });
-}
+};
   
 // fETCH uSER DETAILS
 const get_user = async (request, reply) => {
@@ -217,7 +205,6 @@ const get_user = async (request, reply) => {
 
 module.exports = {
   create_user,
-  // login_user,
   mobile_login,
   verify_through_otp,
   update_User,

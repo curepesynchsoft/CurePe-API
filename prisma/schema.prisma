@@ -19,6 +19,7 @@ model User {
   gender              String        @default("")
   otp                 Int           @default(1)
   dob                 String        @default("02/2/2000")
+  health_id           String        @default("name1234")
   passkey             String        @default("")
   time_zone           String        @default("UTC")
   remember_token      Boolean       @default(false)
@@ -34,6 +35,7 @@ model User {
 model User_relatives {
   id                   Int @id       @default(autoincrement())
   full_name            String
+  phone                String        @unique
   gender               String 
   dob                  String        
   relation             String

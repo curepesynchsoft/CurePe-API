@@ -7,8 +7,7 @@ const autoload = require("fastify-autoload");
 const routes = require("./app/routes/routes");
 const { v4: uuid } = require("uuid");
 const path = require("path");
-const multer = require('multer');
-const upload = multer({ dest: 'media/' });
+
 
 const informational_constant = require("./app/constants/informational");
 // implement hooks if we want to track the Incoming Requests somewhere.
@@ -77,4 +76,4 @@ const run = (app) =>
     })
   });
 
-module.exports = { init, run, upload };
+module.exports = { init, run, };

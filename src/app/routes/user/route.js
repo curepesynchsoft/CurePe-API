@@ -18,15 +18,7 @@ module.exports = function (fastify, opts, done) {
   });
 
   //Route for User create
-  // fastify.post("/register",{
-  //   schema: schema.create,
-  //   handler: controller.create_user
-  // });
-
-  // fastify.post("/login",{
-  //   schema: schema.login,
-  //   handler: controller.login_user
-  // });
+ 
   fastify.post("/update_user",{
     onRequest: [fastify.authenticate],
     schema:schema.update,
