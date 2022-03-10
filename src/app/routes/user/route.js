@@ -6,6 +6,8 @@ const schema = require("../user/schema");
  */
 module.exports = function (fastify, opts, done) {
 
+  // generate OTP 
+
   fastify.post("/mobile-login", {
     schema: schema.mobile_login,
     handler: controller.mobile_login,
@@ -17,7 +19,7 @@ module.exports = function (fastify, opts, done) {
     handler: controller.verify_through_otp,
   });
 
-  //Route for User create
+  //Route for User update
  
   fastify.post("/update_user",{
     onRequest: [fastify.authenticate],
@@ -25,16 +27,19 @@ module.exports = function (fastify, opts, done) {
     handler: controller.update_User
   });
 
+  // Add relatives 
   fastify.post("/add_members",{    
     onRequest: [fastify.authenticate],
     schema:schema.add_member,
     handler: controller.add_members
   });
 
+  //Get Added member list
   fastify.get("/users", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
+    onRequest: [fastify.authenticate],
     schema: schema.retrieve,
-    handler: controller.get_user,
+    handler: controller.get_member_details,
   });
   
   done();

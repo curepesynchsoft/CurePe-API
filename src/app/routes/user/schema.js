@@ -38,7 +38,6 @@ const add_member_schema = {
         dob: {type:'string',default:'01/01/2000'},
         relation: {type: 'string', default:'sister'}
     },
-    // headers: header_mediums,
     required:['full_name','phone','gender','dob','relation'],
 }
 
@@ -49,10 +48,11 @@ const user_update_schema = {
         gender:{type:'string', default:'female'},
         dob:{type:'string' , default:'26/01/1999'},
         health_id: {type:'string', default: '12345679980'}
-        // avatar: {type:'string',default:'img.jpg'}
     },
     required: ['full_name','gender','dob','health_id']
 };
+
+
 
 module.exports = {
     

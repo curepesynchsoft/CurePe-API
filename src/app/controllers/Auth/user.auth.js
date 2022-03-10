@@ -5,35 +5,9 @@ const user_model = require("../../models/user.model");
 const user_relative_model = require("../../models/userRelative.model");
 // importing the utilities plugin for extra jobs
 let utilites = require("../../common-helpers/utilities");
-// twilio for SMS communication
-// let twilio_client = require("../../services/twilio");
 // messages constants
 let messages = require("../../constants/messages");
-
-const { ModelBuildContext } = require("twilio/lib/rest/autopilot/v1/assistant/modelBuild");
 const response = require("../../routes/schemas/common/response");
-
-// login user
-// Create User
-const create_user = async (request, reply) => {
-  // run a model
-  try {
-  const new_user = {
-    full_name: request.body.full_name,
-    gender: request.body.gender,
-    dob: request.body.dob,
-  //   passkey: request.body.passkey,
-  }
-
-  const return_data = await user_model.create(new_user);
-
-   // generate token
-   const token = global.app.jwt.sign( return_data );
-  return reply.send({ data:{ token } });
-  } catch (error) {
-    return reply.code(422).send({ error: { ...error } });
-  }
-};
 
 
 // Verify OTP
@@ -59,8 +33,6 @@ const mobile_login = async (request, reply) => {
       // prepare a payload user
       response_payload.already_registered = true;
       response_payload.otp = new_otp;
-      //send out an OTP for login
-      // await sendTwilioSMS(user.phone, new_otp);
       // return the response here
       return reply.send({ data: { ...response_payload } });
     } else {
@@ -77,19 +49,6 @@ const mobile_login = async (request, reply) => {
   }
 };
 
-const sendTwilioSMS = async (phone, otp) => {
-  return await twilio_client
-    .SendTwilioSMS(
-      phone,
-      messages.OTP_MESSAGE.replace("{otp}", otp).replace(
-        "{app_name}",
-        process.env.APP_NAME
-      )
-    )
-    .then(function (message_result) {
-      return message_result;
-    });
-};
 
 
 const createUser = async (request, reply) => {
@@ -100,25 +59,12 @@ const createUser = async (request, reply) => {
   };
   try {
     const return_data = await user_model.create(new_user);
-    // await sendTwilioSMS(new_user.phone, new_user.otp);
     return return_data;
   } catch (error) {
     console.log(error);
     return reply.code(422).send({ error: { ...error } });
   }
 };
-// const updateUser = async (request, reply) => {
-//   try {
-//     const update_document = {
-//       ...request.body,
-//     };
-//     user = await user_model.update({ id: request.user.id }, update_document);
-//     // return the response here
-//     return reply.send({ data: { user } });
-//   } catch (error) {
-//     return reply.code(422).send({ error: { ...error } });
-//   }
-// };
 
 // Verify OTP
 const verify_through_otp = async (request, reply) => {
@@ -158,7 +104,6 @@ const update_User = async (request, reply) => {
       const user_relative = await user_relative_model.findUnique(
         { phone: request.user.phone }
       )
-      // console.log(user_relative)
     }
     // return the response here
     return reply.send({ data: { user } });
@@ -192,11 +137,15 @@ const add_members = async (request, reply) =>{
   }
 };
   
-// fETCH uSER DETAILS
-const get_user = async (request, reply) => {
+// FETCH USER DETAILS
+const get_member_details = async (request, reply) => {
   // run a model
   try {
-    const return_data = await user_model.findMany(request.body);
+    const return_data = await user_relative_model.findMany({
+      where: {
+        userId: request.user.id,
+      },
+    });
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
@@ -204,10 +153,9 @@ const get_user = async (request, reply) => {
 };
 
 module.exports = {
-  create_user,
   mobile_login,
   verify_through_otp,
   update_User,
-  get_user,
+  get_member_details,
   add_members,
 };
