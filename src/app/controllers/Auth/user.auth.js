@@ -137,7 +137,7 @@ const add_members = async (request, reply) =>{
   }
 };
   
-// FETCH USER DETAILS
+// FETCH Added member DETAILS
 const get_member_details = async (request, reply) => {
   // run a model
   try {
@@ -152,10 +152,21 @@ const get_member_details = async (request, reply) => {
   }
 };
 
+// FETCH USER DETAILS
+const user = async(request, reply) => {
+  try {
+    const user_data = await user_model.findMany(request.body);
+    reply.send({ data: user_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
+
 module.exports = {
   mobile_login,
   verify_through_otp,
   update_User,
   get_member_details,
   add_members,
+  user,
 };

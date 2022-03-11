@@ -35,11 +35,18 @@ module.exports = function (fastify, opts, done) {
   });
 
   //Get Added member list
-  fastify.get("/users", {
+  fastify.get("/added_member_list", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
     onRequest: [fastify.authenticate],
     schema: schema.retrieve,
     handler: controller.get_member_details,
+  });
+
+  //Get User List
+  fastify.get("/user", {
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve,
+    handler: controller.user,
   });
   
   done();
