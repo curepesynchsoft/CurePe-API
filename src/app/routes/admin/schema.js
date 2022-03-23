@@ -4,19 +4,19 @@ const { type, properties } = require("../schemas/common/header");
 const { required } = require("nodemon/lib/config");
 
 //admin login
-// const admin_login_schema = {
-//     type: 'object',
-//     properties: {
-//         phone: { type: 'string', example: '+918736894535'}
-//     },
-//     required: ['phone']
-// };
+const admin_login_schema = {
+    type: 'object',
+    properties: {
+        phone: { type: 'string', example: '+919876543210'}
+    },
+    required: ['phone']
+};
 
 const verify_otp_schema = {
     type: 'object',
     properties: {
-        phone: { type: 'string', example: '+918736894535' },
-        otp: { type: 'number', example: '123456' }
+        phone: { type: 'string', example: '+919876543210' },
+        otp: { type: 'number', example: '591215' }
     },
     required: ['phone']
 };
@@ -25,21 +25,21 @@ const admin_update_schema = {
     type: 'object',
     properties:{
         full_name:{type:'string', default:'Pragati'},
-        phone :{type:'string', default: '+918736894535'}
+        phone :{type:'string', default: '+919876543210'}
     },
     required: ['full_name','phone']
 };
 
 
-const admin_login_schema = {
-    type: 'object',
-    properties: {
-        email: { type: 'string', default: 'ada.srivastava@synchsoft.in'},
-        passkey: { type: 'string', default: 'password@!' },
-    },
+// const user_login_schema = {
+//     type: 'object',
+//     properties: {
+//         email: { type: 'string', default: 'ada.srivastava@synchsoft.in'},
+//         passkey: { type: 'string', default: 'password@!' },
+//     },
 
-    required: ['email','passkey']
-}
+//     required: ['email','passkey']
+// }
 
 
 module.exports = {

@@ -16,13 +16,14 @@ const admin_login= async (request, reply) => {
     try {
       if (admin) {
         //admin already exists , we must update the OTP and resend a new OTP, update the same row at the same time
-        let new_otp = utilites.GenerateOTP();
+        // let new_otp = utilites.GenerateOTP();
+        let new_otp = admin_model.otp
         let update_document = {
           otp: {
             set: new_otp,
           },
         };
-        admin = await admin_model.update(
+        admin = await admin_model.findUnique(
           { phone: request.body.phone },
           update_document
         );
@@ -54,7 +55,7 @@ const verify_through_otp = async (request, reply) => {
     );
     if (admin.otp === request.body.otp) {
       if (!admin.verified) {
-        admin_model.update({ phone: request.body.phone }, { verified: true });
+        admin_model.findUnique({ phone: request.body.phone }, { verified: true });
         admin.verified = true;
       }
       let payload = {};
