@@ -45,3 +45,10 @@ model User_relatives {
   user User @relation(fields: [userId], references: [id])
 
 }
+
+model Admin {
+  id                  Int           @id @default(autoincrement())
+  full_name           String
+  phone               String          @unique
+  otp                 Int             @default(1)      
+}

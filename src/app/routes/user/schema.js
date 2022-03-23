@@ -1,7 +1,10 @@
 const response_mediums = require("../schemas/common/response");
 const header_mediums = require("../schemas/common/header");
+const { type, properties } = require("../schemas/common/header");
+const { required } = require("nodemon/lib/config");
 
 
+// mobile login
 const mobile_login_schema = {
     type: 'object',
     properties: {
@@ -55,7 +58,7 @@ const user_update_schema = {
 
 
 module.exports = {
-    
+
     mobile_login:{
         description:'Mobile Login',
         tags: ['Authentication'],
