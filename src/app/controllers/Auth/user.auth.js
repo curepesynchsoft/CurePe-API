@@ -141,11 +141,10 @@ const add_members = async (request, reply) =>{
 const get_member_details = async (request, reply) => {
   // run a model
   try {
-    const return_data = await user_relative_model.findMany({
-      where: {
-        userId: request.user.id,
-      },
-    });
+    const return_data = await user_relative_model.findMany(request.body);
+      // where: {
+      //   userId: request.user.id,
+      // },
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
