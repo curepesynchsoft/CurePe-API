@@ -137,8 +137,24 @@ const add_members = async (request, reply) =>{
   }
 };
   
-// FETCH Added member DETAILS
+// FETCH All Added member DETAILS
 const get_member_details = async (request, reply) => {
+  // run a model
+  try {
+    const return_data = await user_relative_model.findMany({
+      where: {
+        userId: request.user.id,
+      },
+    })
+    reply.send({ data: return_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
+
+//Fetch Added members by user
+
+const get_all_member_details = async (request, reply) => {
   // run a model
   try {
     const return_data = await user_relative_model.findMany(request.body);
@@ -167,5 +183,6 @@ module.exports = {
   update_User,
   get_member_details,
   add_members,
+  get_all_member_details,
   user,
 };
