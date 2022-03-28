@@ -48,6 +48,12 @@ module.exports = function (fastify, opts, done) {
     schema: schema.retrieve,
     handler: controller.get_member_details,
   });
+  fastify.get("/perticular_member_list", {
+    // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve,
+    handler: controller.get_member,
+  });
 
 
   //Get User List
