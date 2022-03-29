@@ -156,10 +156,10 @@ const get_member_details = async (request, reply) => {
 const get_member = async (request, reply) => {
   // run a model
   try {
-    const return_data = await user_relative_model.findUnique({ id: request.user.id }
+    const return_data = await user_relative_model.findUnique({ id: request.user_relative.userId }
       ,{
       where: {
-        userId: request.user_relative.userId,
+        userId: request.userId,
       },
     }
     )
