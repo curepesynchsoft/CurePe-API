@@ -157,11 +157,11 @@ const get_member = async (request, reply) => {
   // run a model
   try {
     const return_data = await user_relative_model.findUnique({ id: request.user.id }
-    //   ,{
-    //   where: {
-    //     userId: request.userId,
-    //   },
-    // }
+      ,{
+      where: {
+        userId: request.user_relative.userId,
+      },
+    }
     )
     reply.send({ data: return_data });
   } catch (error) {
