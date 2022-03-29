@@ -156,11 +156,13 @@ const get_member_details = async (request, reply) => {
 const get_member = async (request, reply) => {
   // run a model
   try {
-    const return_data = await user_relative_model.findUnique({ id: request.user.id },{
-      where: {
-        userId: request.userId,
-      },
-    })
+    const return_data = await user_relative_model.findUnique({ id: request.user.id }
+    //   ,{
+    //   where: {
+    //     userId: request.userId,
+    //   },
+    // }
+    )
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
