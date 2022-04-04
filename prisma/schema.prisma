@@ -14,12 +14,13 @@ datasource db {
 model User {
   id                  Int           @id @default(autoincrement())
   full_name           String        @default("")
-  email               String        @default("noemail@omni-plays.com")
+  email               String        @default("noemail@curepe.com")
   phone               String        @unique
   gender              String        @default("")
   otp                 Int           @default(1)
   dob                 String        @default("02/2/2000")
   health_id           String        @default("name1234")
+  image               String        @default("")
   passkey             String        @default("")
   time_zone           String        @default("UTC")
   remember_token      Boolean       @default(false)

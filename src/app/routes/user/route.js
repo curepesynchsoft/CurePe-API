@@ -35,26 +35,19 @@ module.exports = function (fastify, opts, done) {
   });
 
   //Get Added member list
-  fastify.get("/All_added_member_list", {
-    // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
-    onRequest: [fastify.authenticate],
-    schema: schema.retrieve,
-    handler: controller.get_all_member_details,
-  });
-
   fastify.get("/added_member_list", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
     onRequest: [fastify.authenticate],
-    schema: schema.retrieve,
+    schema: schema.retrieve_all_particular_members,
     handler: controller.get_member_details,
   });
-  fastify.get("/perticular_member_list", {
+  //Get All Added member list
+  fastify.get("/added_all_member_list", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
     onRequest: [fastify.authenticate],
-    schema: schema.retrieve,
-    handler: controller.get_member,
+    schema: schema.retrieve_all_members,
+    handler: controller.get_all_member_details,
   });
-
 
   //Get User List
   fastify.get("/user", {
@@ -64,4 +57,5 @@ module.exports = function (fastify, opts, done) {
   });
   
   done();
+
 };
