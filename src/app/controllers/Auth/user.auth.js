@@ -15,6 +15,7 @@ const multer = require("multer");
 const mobile_login = async (request, reply) => {
   let response_payload = {};
   response_payload.phone = request.body.phone;
+  
 
   // Check if user Exists
   let user = await user_model.findUnique({ phone: request.body.phone });
@@ -37,8 +38,8 @@ const mobile_login = async (request, reply) => {
       // return the response here
       return reply.send({ data: { ...response_payload } });
     } else {
-      response_payload.already_registered = false;
       //create a user here and send out a OTP
+      response_payload.already_registered = false;
       response_payload.user = await createUser(request, reply);
       //return the response
       return reply.send({ data: { ...response_payload } });

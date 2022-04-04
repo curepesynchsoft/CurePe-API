@@ -22,15 +22,15 @@ const verify_otp_schema = {
     required: ['phone']
 };
 
-const user_login_schema = {
-    type: 'object',
-    properties: {
-        email: { type: 'string', default: 'ada.srivastava@synchsoft.in'},
-        passkey: { type: 'string', default: 'password@!' },
-    },
+// const user_login_schema = {
+//     type: 'object',
+//     properties: {
+//         email: { type: 'string', default: 'ada.srivastava@synchsoft.in'},
+//         passkey: { type: 'string', default: 'password@!' },
+//     },
 
-    required: ['email','passkey']
-}
+//     required: ['email','passkey']
+// }
 
 const add_member_schema = {
     type:'object',
