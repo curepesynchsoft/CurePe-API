@@ -15,6 +15,12 @@ module.exports = function (fastify, opts, done) {
     schema: schema.verify_admin_otp,
     handler: controller.verify_through_otp,
   });
+    //Get User List
+  fastify.get("/admin", {
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve,
+    handler: controller.admin,
+  });
 
   // fastify.post('/update-details', {
   //   schema: schema.

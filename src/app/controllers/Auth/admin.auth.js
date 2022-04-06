@@ -90,11 +90,19 @@ const verify_through_otp = async (request, reply) => {
 //     return reply.code(422).send({ error: { ...error } });
 //   }
 // };
-  
+const admin = async(request, reply) => {
+  try {
+    const admin_data = await admin_model.findMany(request.body);
+    reply.send({ data: admin_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 
 
   module.exports = {
     admin_login,
     verify_through_otp,
+    admin,
     // update_admin,
   }

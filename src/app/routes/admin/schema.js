@@ -58,5 +58,12 @@ module.exports = {
         body: verify_otp_schema,
         response: response_mediums
     },
-    admin_update_schema:{}
+    retrieve: {
+        description: 'Get the User details',
+        tags: ['Admin'],
+        summary: 'Get all the User details',
+        headers: header_mediums,
+        response: response_mediums
+    },
+
 }
