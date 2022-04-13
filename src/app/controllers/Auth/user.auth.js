@@ -45,7 +45,7 @@ const mobile_login = async (request, reply) => {
     }
   } catch (error) {
     // console.log(error);
-    return reply.code(500).send({ error: { ...error } });
+    return reply.code(404).send({ error: { ...error } });
   }
 };
 
@@ -58,7 +58,7 @@ const createUser = async (request, reply) => {
     otp: utilites.GenerateOTP(),
   };
   if (request.body.phone==""){
-    return reply.code(404).send({error: "field required"});
+    return reply.code(400).send({error: "field required"});
   }
   try {
     const return_data = await user_model.create(new_user);

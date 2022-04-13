@@ -35,7 +35,7 @@ const admin_login= async (request, reply) => {
       } else {
         response_payload.already_registered = false;
         //create a admin here and send out a OTP
-        // response_payload.admin = await createUser(request, reply);
+        // response_payload.admin = await createadmin(request, reply);
         //return the response
         return reply.send({ data: { ...response_payload } });
         
@@ -98,11 +98,29 @@ const admin = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
+// update user values
+const update_Admin = async (request, reply) => {
+  try {
+    const update_document = {
+      full_name : request.body.full_name,
+      phone : request.body.phone
+    };
+    const admin = await admin.update({ id: request.admin.id }, update_document);
+    if(admin) {      
+      const admin = await admin_model.findUnique(
+        { phone: request.admin.phone }
+      )
+    }
+    // return the response here
+    return reply.send({ data: { admin } });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 
   module.exports = {
     admin_login,
     verify_through_otp,
     admin,
-    // update_admin,
+    update_Admin,
   }

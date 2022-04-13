@@ -58,6 +58,14 @@ module.exports = {
         body: verify_otp_schema,
         response: response_mediums
     },
+    update: {
+        summary: 'Update admin details with the help of token.',
+        description:'Update admin Data',
+        tags: ['Admin'],
+        headers:header_mediums,
+        body: admin_update_schema,
+        response: response_mediums
+    },
     retrieve: {
         description: 'Get the User details',
         tags: ['Admin'],
