@@ -101,7 +101,6 @@ const update_User = async (request, reply) => {
       gender :request.body.gender,
       dob: request.body.dob,
       health_id: request.body.health_id,
-      image: request.body.image
     };
     if (request.body.full_name|request.body.gender|request.body.dob==""){
       return reply.code(400).send({error: "field required"});
