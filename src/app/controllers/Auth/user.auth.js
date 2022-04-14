@@ -8,7 +8,7 @@ let utilites = require("../../common-helpers/utilities");
 // messages constants
 let messages = require("../../constants/messages");
 const response = require("../../routes/schemas/common/response");
-const multer = require("multer");
+// const multer = require("multer");
 
 
 // Verify OTP
