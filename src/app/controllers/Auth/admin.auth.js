@@ -124,4 +124,5 @@ const admin = async(request, reply) => {
     admin_login,
     verify_through_otp,
     admin,
+    update_admin,
   }
