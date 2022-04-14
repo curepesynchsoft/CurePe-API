@@ -63,6 +63,10 @@ module.exports = {
     mobile_login:{
         description:'Mobile Login',
         tags: ['Authentication'],
+<<<<<<< HEAD
+=======
+        required: true,
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
         summary: 'Mobile Login Endpoint for all the Login process related to mobile number.',
         body: mobile_login_schema,
         response: response_mediums
