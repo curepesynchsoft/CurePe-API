@@ -45,11 +45,7 @@ const mobile_login = async (request, reply) => {
     }
   } catch (error) {
     // console.log(error);
-<<<<<<< HEAD
     return reply.code(500).send({ error: { ...error } });
-=======
-    return reply.code(404).send({ error: { ...error } });
->>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
   }
 };
 
