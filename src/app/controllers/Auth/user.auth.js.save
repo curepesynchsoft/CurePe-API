@@ -59,6 +59,7 @@ const createUser = async (request, reply) => {
   };
   if (request.body.phone==""){
     return reply.code(404).send({error: "field required"});
+
   }
   try {
     const return_data = await user_model.create(new_user);
