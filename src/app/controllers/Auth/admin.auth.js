@@ -35,11 +35,6 @@ const admin_login= async (request, reply) => {
       } else {
         response_payload.already_registered = false;
         //create a admin here and send out a OTP
-<<<<<<< HEAD
-        // response_payload.admin = await createUser(request, reply);
-=======
-        // response_payload.admin = await createadmin(request, reply);
->>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
         //return the response
         return reply.send({ data: { ...response_payload } });
         
@@ -75,7 +70,6 @@ const verify_through_otp = async (request, reply) => {
 };
 
 // update admin values
-<<<<<<< HEAD
 // const update_admin = async (request, reply) => {
 //   try {
 //     const update_document = {
@@ -94,8 +88,7 @@ const verify_through_otp = async (request, reply) => {
 //   } catch (error) {
 //     return reply.code(422).send({ error: { ...error } });
 //   }
-// };
-=======
+// }
 const update_admin = async (request, reply) => {
   try {
     const update_document = {
@@ -115,7 +108,7 @@ const update_admin = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
->>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+
 const admin = async(request, reply) => {
   try {
     const admin_data = await admin_model.findMany(request.body);
@@ -124,19 +117,11 @@ const admin = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-<<<<<<< HEAD
 
-=======
 // update user values
->>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
 
   module.exports = {
     admin_login,
     verify_through_otp,
     admin,
-<<<<<<< HEAD
-    // update_admin,
-=======
-    update_admin,
->>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
   }
