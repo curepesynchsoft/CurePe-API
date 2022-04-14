@@ -113,7 +113,6 @@ const update_User = async (request, reply) => {
       gender :request.body.gender,
       dob: request.body.dob,
       health_id: request.body.health_id,
-      image: request.body.image
     };
 <<<<<<< HEAD
 =======
