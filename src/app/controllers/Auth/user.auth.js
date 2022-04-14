@@ -97,12 +97,15 @@ const verify_through_otp = async (request, reply) => {
 const update_User = async (request, reply) => {
   try {
     const update_document = {
-      full_name : request.body.full_name,
+      full_name : request.body.full_name, 
       gender :request.body.gender,
       dob: request.body.dob,
       health_id: request.body.health_id,
       image: request.body.image
     };
+    if (request.body.full_name|request.body.gender|request.body.dob==""){
+      return reply.code(400).send({error: "field required"});
+    }
     const user = await user_model.update({ id: request.user.id }, update_document);
     if(user) {      
       const user_relative = await user_relative_model.findUnique(
@@ -115,6 +118,7 @@ const update_User = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+
 
 // add relatives
 const add_members = async (request, reply) =>{
@@ -130,6 +134,9 @@ const add_members = async (request, reply) =>{
         dob: request.body.dob,
         relation: request.body.relation
       };
+      if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
+        return reply.code(400).send({error: "field required"});
+      }
       response.add_members = await user_relative_model.create(new_member)
       if (response.add_members) {
         response.user = await createUser(request, reply);

@@ -71,25 +71,25 @@ const verify_through_otp = async (request, reply) => {
 };
 
 // update admin values
-// const update_admin = async (request, reply) => {
-//   try {
-//     const update_document = {
-//       full_name : request.body.full_name,
-//       phone : request.body.phone
+const update_admin = async (request, reply) => {
+  try {
+    const update_document = {
+      full_name : request.body.full_name,
+      phone : request.body.phone
       
-//     };
-//     const admin = await admin_model.update({ id: request.admin.id }, update_document);
-//     if(admin) {      
-//       const admin = await admin_model.findUnique(
-//         { phone: request.admin.phone }
-//       )
-//     }
-//     //return the response here
-//     return reply.send({ data: { admin } });
-//   } catch (error) {
-//     return reply.code(422).send({ error: { ...error } });
-//   }
-// };
+    };
+    const admin = await admin_model.update({ id: request.admin.id }, update_document);
+    // if(admin) {      
+    //   // const admin = await admin_model.findUnique(
+    //     { phone: request.admin.phone }
+      
+    // }
+    //return the response here
+    return reply.send({ data: { admin } });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 const admin = async(request, reply) => {
   try {
     const admin_data = await admin_model.findMany(request.body);
@@ -99,28 +99,10 @@ const admin = async(request, reply) => {
   }
 };
 // update user values
-const update_Admin = async (request, reply) => {
-  try {
-    const update_document = {
-      full_name : request.body.full_name,
-      phone : request.body.phone
-    };
-    const admin = await admin.update({ id: request.admin.id }, update_document);
-    if(admin) {      
-      const admin = await admin_model.findUnique(
-        { phone: request.admin.phone }
-      )
-    }
-    // return the response here
-    return reply.send({ data: { admin } });
-  } catch (error) {
-    return reply.code(422).send({ error: { ...error } });
-  }
-};
 
   module.exports = {
     admin_login,
     verify_through_otp,
     admin,
-    update_Admin,
+    update_admin,
   }

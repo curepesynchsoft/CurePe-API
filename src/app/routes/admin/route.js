@@ -20,7 +20,7 @@ module.exports = function (fastify, opts, done) {
   fastify.post("/update_admin",{
     onRequest: [fastify.authenticate],
     schema:schema.update,
-    handler: controller.update_Admin,
+    handler: controller.update_admin,
   });
     //Get User List
   fastify.get("/admin", {
