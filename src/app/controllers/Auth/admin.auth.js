@@ -35,7 +35,6 @@ const admin_login= async (request, reply) => {
       } else {
         response_payload.already_registered = false;
         //create a admin here and send out a OTP
-        // response_payload.admin = await createadmin(request, reply);
         //return the response
         return reply.send({ data: { ...response_payload } });
         
@@ -71,6 +70,25 @@ const verify_through_otp = async (request, reply) => {
 };
 
 // update admin values
+// const update_admin = async (request, reply) => {
+//   try {
+//     const update_document = {
+//       full_name : request.body.full_name,
+//       phone : request.body.phone
+      
+//     };
+//     const admin = await admin_model.update({ id: request.admin.id }, update_document);
+//     if(admin) {      
+//       const admin = await admin_model.findUnique(
+//         { phone: request.admin.phone }
+//       )
+//     }
+//     //return the response here
+//     return reply.send({ data: { admin } });
+//   } catch (error) {
+//     return reply.code(422).send({ error: { ...error } });
+//   }
+// }
 const update_admin = async (request, reply) => {
   try {
     const update_document = {
@@ -90,6 +108,7 @@ const update_admin = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+
 const admin = async(request, reply) => {
   try {
     const admin_data = await admin_model.findMany(request.body);
@@ -98,6 +117,7 @@ const admin = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+
 // update user values
 
   module.exports = {
