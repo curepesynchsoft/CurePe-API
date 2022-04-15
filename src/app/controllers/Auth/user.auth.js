@@ -8,7 +8,8 @@ let utilites = require("../../common-helpers/utilities");
 // messages constants
 let messages = require("../../constants/messages");
 const response = require("../../routes/schemas/common/response");
-// const multer = require("multer");
+const multer = require("fastify-multer");
+// const upload = multer({dest: 'uploads/'});
 
 
 // Verify OTP
@@ -96,16 +97,17 @@ const verify_through_otp = async (request, reply) => {
 // update user values
 const update_User = async (request, reply) => {
   try {
-    
+    if (request.body.full_name==""){
+      return reply.code(400).send({error: "field required"});
+    }
     const update_document = {
+      // img : upload.single('userImage'),
       full_name : request.body.full_name,
       gender :request.body.gender,
       dob: request.body.dob,
       health_id: request.body.health_id,
     };
-    if (request.body.full_name=="" && request.body.phone=="" && request.body.dob=="" && request.body.gender==""){
-      return reply.code(400).send({error: "field required"});
-    }
+    
     const user = await user_model.update({ id: request.user.id }, update_document);
     // if(user) {      
     //   const user_relative = await user_relative_model.findUnique(
@@ -201,6 +203,59 @@ const user = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+const upload_media = async (request, reply) => {
+
+
+  // run a model
+  const fileName = request.file.filename;
+  const filePath = request.file.path;
+  const type = request.query.media_type;
+  const reference_id = request.query.reference_id;
+console.log(fileName,filePath,type,reference_id)
+  try {
+    const media = await app_controller.create(prisma, prisma.media, {
+      reference_id: reference_id,
+      type: type,
+      path: filePath,
+      // name: fileName,
+    });
+    var prisma_payload = {};
+    var update_results = {};
+    prisma_payload.where = {
+      id: reference_id,
+    };
+    prisma_payload.update = {
+      auth_media_path: filePath,
+    };
+
+    switch (type) {
+      case "check_in":
+        // Update the Auth Media Path
+        update_results = await app_controller.update(
+          prisma,
+          prisma.checkIns,
+          prisma_payload
+        );
+        break;
+
+      case "check_out":
+        // Update the Auth Media Path
+        update_results = await app_controller.update(
+          prisma,
+          prisma.checkOuts,
+          prisma_payload
+        );
+        break;
+
+      default:
+        break;
+    }
+    reply.send({ data: { media, update_operations: update_results } });
+  } catch (error) {
+    console.log(error);
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 
 module.exports = {
   mobile_login,
@@ -211,4 +266,5 @@ module.exports = {
   add_members,
   get_all_member_details,
   user,
+  upload_media,
 };

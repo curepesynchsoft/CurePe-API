@@ -3,6 +3,9 @@ const header_mediums = require("../schemas/common/header");
 const { type, properties } = require("../schemas/common/header");
 const { required } = require("nodemon/lib/config");
 
+const schema_group_name = "Uploads";
+const schema_group_tag = [schema_group_name];
+
 
 // mobile login
 const mobile_login_schema = {
@@ -51,10 +54,26 @@ const user_update_schema = {
         gender:{type:'string', default:'female'},
         dob:{type:'string' , default:'26/01/1999'},
         health_id: {type:'string', default: '12345679980'},
-        // image: {type: 'string', default: ' '},
+        img: {type: 'string', default: ' '},
     },
-    required: ['full_name','gender','dob','health_id']
+    required: ['full_name','gender','dob','health_id','img']
 };
+const upload_schema = {
+    type: "object",
+    properties: {
+      media_type: {
+        type: "string",
+        example: "pre_installation",
+        description:
+          "pre_installation | post_installation | check_in | check_out",
+      },
+      reference_id: {
+        type: "number",
+        example: 1,
+        description: "Reference Id for the Upload",
+      },
+    },
+  };
 
 
 
@@ -63,6 +82,7 @@ module.exports = {
     mobile_login:{
         description:'Mobile Login',
         tags: ['Authentication'],
+        required: true,
         summary: 'Mobile Login Endpoint for all the Login process related to mobile number.',
         body: mobile_login_schema,
         response: response_mediums
@@ -81,6 +101,15 @@ module.exports = {
         headers:header_mediums,
         body: user_update_schema,
         response: response_mediums
+    },
+    uploads: {
+        description: "Media " + schema_group_name + " for the Curepe app",
+        // tags: schema_group_tag,
+        tags: ['Authentication'],
+        summary: "Media " + schema_group_name,
+        querystring: upload_schema,
+        headers: header_mediums,
+        response: response_mediums,
     },
     add_member: {
         summary: 'User can add their family member with the help of their unique generated token',
