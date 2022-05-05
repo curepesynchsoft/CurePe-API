@@ -54,9 +54,9 @@ const user_update_schema = {
         gender:{type:'string', default:'female'},
         dob:{type:'string' , default:'26/01/1999'},
         health_id: {type:'string', default: '12345679980'},
-        img: {type: 'string', default: ' '},
+        // img: {type: 'string', default: ' '},
     },
-    required: ['full_name','gender','dob','health_id','img']
+    required: ['full_name','gender','dob','health_id']
 };
 const upload_schema = {
     type: "object",
@@ -74,6 +74,7 @@ const upload_schema = {
       },
     },
   };
+
 
 
 
@@ -104,7 +105,7 @@ module.exports = {
     },
     uploads: {
         description: "Media " + schema_group_name + " for the Curepe app",
-        // tags: schema_group_tag,
+        tags: schema_group_tag,
         tags: ['Authentication'],
         summary: "Media " + schema_group_name,
         querystring: upload_schema,

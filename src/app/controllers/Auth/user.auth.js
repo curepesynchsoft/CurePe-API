@@ -3,6 +3,7 @@ const HttpStatusCode = require("http-status-codes/index");
 // import Model from the models directory
 const user_model = require("../../models/user.model");
 const user_relative_model = require("../../models/userRelative.model");
+const media_model = require("../../models/media.model");
 // importing the utilities plugin for extra jobs
 let utilites = require("../../common-helpers/utilities");
 // messages constants
@@ -10,6 +11,7 @@ let messages = require("../../constants/messages");
 const response = require("../../routes/schemas/common/response");
 const multer = require("fastify-multer");
 // const upload = multer({dest: 'uploads/'});
+
 
 
 // Verify OTP
@@ -97,11 +99,11 @@ const verify_through_otp = async (request, reply) => {
 // update user values
 const update_User = async (request, reply) => {
   try {
-    if (request.body.full_name==""){
+    if (request.body.full_name == ""){
       return reply.code(400).send({error: "field required"});
     }
     const update_document = {
-      // img : upload.single('userImage'),
+      // img : request.media.userId,
       full_name : request.body.full_name,
       gender :request.body.gender,
       dob: request.body.dob,
@@ -109,11 +111,11 @@ const update_User = async (request, reply) => {
     };
     
     const user = await user_model.update({ id: request.user.id }, update_document);
-    // if(user) {      
-    //   const user_relative = await user_relative_model.findUnique(
-    //     { phone: request.user.phone }
-    //   )
-    // }
+    if(user) {      
+      const user_relative = await user_relative_model.findUnique(
+        { phone: request.user.phone }
+      )
+    }
     // return the response here
     return reply.send({ data: { user } });
   } catch (error) {
@@ -204,20 +206,19 @@ const user = async(request, reply) => {
   }
 };
 const upload_media = async (request, reply) => {
-
-
   // run a model
-  const fileName = request.file.filename;
+  
   const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
-console.log(fileName,filePath,type,reference_id)
+  // const image_type = request.query.image_type ?? "No Image Type Specified";
+console.log(filePath,type,reference_id)
   try {
-    const media = await app_controller.create(prisma, prisma.media, {
+    const media = await media_model.create(request, reply, {
       reference_id: reference_id,
       type: type,
       path: filePath,
-      // name: fileName,
+      // media: image_type,
     });
     var prisma_payload = {};
     var update_results = {};
@@ -227,11 +228,10 @@ console.log(fileName,filePath,type,reference_id)
     prisma_payload.update = {
       auth_media_path: filePath,
     };
-
     switch (type) {
       case "check_in":
         // Update the Auth Media Path
-        update_results = await app_controller.update(
+        update_results = await media_model.update({ id: request.media.userId },
           prisma,
           prisma.checkIns,
           prisma_payload
@@ -240,7 +240,7 @@ console.log(fileName,filePath,type,reference_id)
 
       case "check_out":
         // Update the Auth Media Path
-        update_results = await app_controller.update(
+        update_results = await media_model.update({ id: request.media.userId },
           prisma,
           prisma.checkOuts,
           prisma_payload

@@ -19,8 +19,8 @@ model User {
   gender              String        @default("")
   otp                 Int           @default(1)
   dob                 String        @default("02/2/2000")
-  health_id           String        @default("name1234")
   image               String        @default("")
+  health_id           String        @default("name1234")
   passkey             String        @default("")
   time_zone           String        @default("UTC")
   remember_token      Boolean       @default(false)
@@ -31,6 +31,7 @@ model User {
   updated_at          DateTime      @updatedAt
 
   user_relatives      User_relatives[]
+  media               Media[]
 }
 
 model User_relatives {
@@ -60,4 +61,6 @@ model Media {
   path         String   @default("")
   created_at   DateTime @default(now())
   updated_at   DateTime @default(now()) @updatedAt
+  userId Int
+  user User @relation(fields: [userId], references: [id])
 }

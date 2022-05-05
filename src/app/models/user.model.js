@@ -12,6 +12,11 @@ const create = async (data) => {
   return repository.create(data);
 };
 
+
+const upsert = async (whereClause, update, create) => {
+  return repository.upsert({ ...whereClause }, update, create);
+};
+
 /**
  *
  * @param whereClause
@@ -71,4 +76,5 @@ module.exports = {
   findUnique,
   findMany,
   findManyWithRelationship,
+  upsert,
 };
