@@ -31,7 +31,6 @@ model User {
   updated_at          DateTime      @updatedAt
 
   user_relatives      User_relatives[]
-  media               Media[]
 }
 
 model User_relatives {
@@ -61,6 +60,15 @@ model Media {
   path         String   @default("")
   created_at   DateTime @default(now())
   updated_at   DateTime @default(now()) @updatedAt
-  userId Int
-  user User @relation(fields: [userId], references: [id])
 }
+
+model MediaTypes {
+  id           Int      @id @default(autoincrement())
+  name         String   @default("")
+  active       Boolean  @default(true)
+  creator_role String   @default("")
+  created_at   DateTime @default(now()) @db.Timestamp(0)
+  updated_at   DateTime @default(now()) @updatedAt @db.Timestamp(0)
+  creator_id   Int      @default(0)
+}
+

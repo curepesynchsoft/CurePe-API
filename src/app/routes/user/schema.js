@@ -25,16 +25,6 @@ const verify_otp_schema = {
     required: ['phone']
 };
 
-// const user_login_schema = {
-//     type: 'object',
-//     properties: {
-//         email: { type: 'string', default: 'ada.srivastava@synchsoft.in'},
-//         passkey: { type: 'string', default: 'password@!' },
-//     },
-
-//     required: ['email','passkey']
-// }
-
 const add_member_schema = {
     type:'object',
     properties: {
@@ -54,7 +44,6 @@ const user_update_schema = {
         gender:{type:'string', default:'female'},
         dob:{type:'string' , default:'26/01/1999'},
         health_id: {type:'string', default: '12345679980'},
-        // img: {type: 'string', default: ' '},
     },
     required: ['full_name','gender','dob','health_id']
 };

@@ -103,7 +103,6 @@ const update_User = async (request, reply) => {
       return reply.code(400).send({error: "field required"});
     }
     const update_document = {
-      // img : request.media.userId,
       full_name : request.body.full_name,
       gender :request.body.gender,
       dob: request.body.dob,
@@ -206,19 +205,19 @@ const user = async(request, reply) => {
   }
 };
 const upload_media = async (request, reply) => {
+
   // run a model
-  
+  const fileName = request.file.filename;
   const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
-  // const image_type = request.query.image_type ?? "No Image Type Specified";
-console.log(filePath,type,reference_id)
+console.log(fileName,filePath,type,reference_id)
   try {
-    const media = await media_model.create(request, reply, {
+    const media = await user_model.create(request, reply, {
       reference_id: reference_id,
       type: type,
       path: filePath,
-      // media: image_type,
+      name: fileName,
     });
     var prisma_payload = {};
     var update_results = {};
@@ -228,10 +227,11 @@ console.log(filePath,type,reference_id)
     prisma_payload.update = {
       auth_media_path: filePath,
     };
+
     switch (type) {
       case "check_in":
         // Update the Auth Media Path
-        update_results = await media_model.update({ id: request.media.userId },
+        update_results = await user_model.update({ id: request.user.id },
           prisma,
           prisma.checkIns,
           prisma_payload
@@ -240,7 +240,7 @@ console.log(filePath,type,reference_id)
 
       case "check_out":
         // Update the Auth Media Path
-        update_results = await media_model.update({ id: request.media.userId },
+        update_results = await user_model.update({ id: request.user.id },
           prisma,
           prisma.checkOuts,
           prisma_payload
