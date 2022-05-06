@@ -3,15 +3,12 @@ const HttpStatusCode = require("http-status-codes/index");
 // import Model from the models directory
 const user_model = require("../../models/user.model");
 const user_relative_model = require("../../models/userRelative.model");
-const media_model = require("../../models/media.model");
 // importing the utilities plugin for extra jobs
 let utilites = require("../../common-helpers/utilities");
 // messages constants
 let messages = require("../../constants/messages");
 const response = require("../../routes/schemas/common/response");
-const multer = require("fastify-multer");
-// const upload = multer({dest: 'uploads/'});
-
+// const multer = require("multer");
 
 
 // Verify OTP
@@ -44,6 +41,7 @@ const mobile_login = async (request, reply) => {
       response_payload.user = await createUser(request, reply);
       //return the response
       return reply.send({ data: { ...response_payload } });
+      
     }
   } catch (error) {
     // console.log(error);
@@ -61,6 +59,7 @@ const createUser = async (request, reply) => {
   };
   if (request.body.phone==""){
     return reply.code(404).send({error: "field required"});
+
   }
   try {
     const return_data = await user_model.create(new_user);
@@ -98,18 +97,58 @@ const verify_through_otp = async (request, reply) => {
 // update user values
 const update_User = async (request, reply) => {
   try {
-    if (request.body.full_name == ""){
-      return reply.code(400).send({error: "field required"});
-    }
     const update_document = {
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
       full_name : request.body.full_name,
+=======
+      full_name : request.body.full_name, 
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+=======
+      full_name : request.body.full_name, 
+>>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+      full_name : request.body.full_name, 
+=======
+<<<<<<< HEAD
+      full_name : request.body.full_name,
+=======
+      full_name : request.body.full_name, 
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
       gender :request.body.gender,
       dob: request.body.dob,
       health_id: request.body.health_id,
     };
-
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+    if (request.body.full_name|request.body.gender|request.body.dob==""){
+      return reply.code(400).send({error: "field required"});
+    }
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+=======
+    if (request.body.full_name|request.body.gender|request.body.dob==""){
+      return reply.code(400).send({error: "field required"});
+    }
+=======
+<<<<<<< HEAD
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
+=======
+    if (request.body.full_name|request.body.gender|request.body.dob==""){
+      return reply.code(400).send({error: "field required"});
+    }
+<<<<<<< HEAD
+>>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
     const user = await user_model.update({ id: request.user.id }, update_document);
-    if(user) {
+    if(user) {      
       const user_relative = await user_relative_model.findUnique(
         { phone: request.user.phone }
       )
@@ -117,10 +156,25 @@ const update_User = async (request, reply) => {
     // return the response here
     return reply.send({ data: { user } });
   } catch (error) {
-    return reply.code(400).send({ error: { ...error } });
+    return reply.code(422).send({ error: { ...error } });
   }
 };
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
+<<<<<<< HEAD
+=======
+
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+<<<<<<< HEAD
+=======
+>>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
 // add relatives
 const add_members = async (request, reply) =>{
   let response = []
@@ -135,9 +189,31 @@ const add_members = async (request, reply) =>{
         dob: request.body.dob,
         relation: request.body.relation
       };
-      if (request.body.full_name=="" && request.body.phone=="" && request.body.dob=="" && request.body.gender=="" && request.body.relation==""){
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+      if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
         return reply.code(400).send({error: "field required"});
       }
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+=======
+      if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
+        return reply.code(400).send({error: "field required"});
+      }
+=======
+<<<<<<< HEAD
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
+=======
+      if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
+        return reply.code(400).send({error: "field required"});
+      }
+<<<<<<< HEAD
+>>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
       response.add_members = await user_relative_model.create(new_member)
       if (response.add_members) {
         response.user = await createUser(request, reply);
@@ -145,9 +221,10 @@ const add_members = async (request, reply) =>{
       return reply.send({ data:{ ...response } });
     }
   } catch (error) {
-    return reply.code(404).send({ error: { ...error } });
+    return reply.code(422).send({ error: { ...error } });
   }
 };
+  
 // FETCH All Added member DETAILS
 const get_member_details = async (request, reply) => {
   // run a model
@@ -202,58 +279,6 @@ const user = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-const upload_media = async (request, reply) => {
-
-  // run a model
-  const fileName = request.file.filename;
-  const filePath = request.file.path;
-  const type = request.query.media_type;
-  const reference_id = request.query.reference_id;
-console.log(fileName,filePath,type,reference_id)
-  try {
-    const media = await user_model.create(request, reply, {
-      reference_id: reference_id,
-      type: type,
-      path: filePath,
-      name: fileName,
-    });
-    var prisma_payload = {};
-    var update_results = {};
-    prisma_payload.where = {
-      id: reference_id,
-    };
-    prisma_payload.update = {
-      auth_media_path: filePath,
-    };
-
-    switch (type) {
-      case "check_in":
-        // Update the Auth Media Path
-        update_results = await user_model.update({ id: request.user.id },
-          prisma,
-          prisma.checkIns,
-          prisma_payload
-        );
-        break;
-
-      case "check_out":
-        // Update the Auth Media Path
-        update_results = await user_model.update({ id: request.user.id },
-          prisma,
-          prisma.checkOuts,
-          prisma_payload
-        );
-        break;
-
-      default:
-        break;
-    }
-    reply.send({ data: { media, update_operations: update_results } });
-  } catch (error) {
-    console.log(error);
-    return reply.code(422).send({ error: { ...error } });
-  }
-};
 
 module.exports = {
   mobile_login,
@@ -264,5 +289,4 @@ module.exports = {
   add_members,
   get_all_member_details,
   user,
-  upload_media,
 };
