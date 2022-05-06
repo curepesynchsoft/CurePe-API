@@ -55,6 +55,15 @@ module.exports = function (fastify, opts, done) {
     schema: schema.retrieve,
     handler: controller.user,
   });
+  fastify.post(
+    "/media",
+    {
+      schema: schema.uploads,
+      onRequest: [fastify.authenticate],
+      preHandler: fastify.uploader.single("file"),
+    },
+    controller.upload_media
+  );
   
   done();
 

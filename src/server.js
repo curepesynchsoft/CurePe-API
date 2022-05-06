@@ -7,6 +7,7 @@ const autoload = require("fastify-autoload");
 const routes = require("./app/routes/routes");
 const { v4: uuid } = require("uuid");
 const path = require("path");
+const fs=require("fs");
 
 
 const informational_constant = require("./app/constants/informational");
@@ -31,6 +32,40 @@ const swagger_configuration = () => {
   };
 };
 
+const multer = require("fastify-multer"); // or import multer from 'fastify-multer'
+
+const storage = multer.diskStorage({
+  destination: function (request, file, cb) {
+    const path =
+      "uploads/" +
+      "/store-" +
+      request.query.reference_id +
+      "/" +
+      request.query.media_type;
+    fs.mkdirSync(path, { recursive: true });
+
+    cb(null, path);
+  },
+  filename: function (request, file, cb) {
+    const fileExt = file.originalname.split(".").pop();
+    cb(
+      null,
+      "store-" +
+        request.query.reference_id +
+        "-" +
+        request.query.media_type +
+        "-" +
+        Date.now() +
+        "." +
+        fileExt
+    );
+  },
+});
+
+const upload = multer({ storage: storage });
+
+console.log(upload);
+
 const init = async () => {
   const app = fastify({
     logger: true,
@@ -45,7 +80,21 @@ const init = async () => {
     dir: path.join(__dirname, "plugins"),
     ignorePattern: /^(__tests__)/,
   });
+
+
+  app.register(multer.contentParser);
+
+  app.uploader = upload;
+
+  app.register(require("fastify-static"), {
+    root: path.join(__dirname, "uploads").replace("/src", ""),
+    prefix: "/uploads/", // optional: default ‘/’
+  });
+  
   app.register(routes);
+  //multer app console
+
+  
   
 
   // if we want to add hooks
@@ -75,5 +124,9 @@ const run = (app) =>
       app.swagger()
     })
   });
+
+// multer for file uploads
+
+
 
 module.exports = { init, run, };

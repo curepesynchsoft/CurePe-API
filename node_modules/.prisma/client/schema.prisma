@@ -53,3 +53,11 @@ model Admin {
   phone               String          @unique
   otp                 Int             @default(1)      
 }
+model Media {
+  id           Int      @id @default(autoincrement())
+  reference_id Int      @default(0)
+  type         String   @default("")
+  path         String   @default("")
+  created_at   DateTime @default(now())
+  updated_at   DateTime @default(now()) @updatedAt
+}

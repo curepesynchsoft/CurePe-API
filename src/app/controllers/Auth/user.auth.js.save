@@ -100,6 +100,7 @@ const update_User = async (request, reply) => {
     const update_document = {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       full_name : request.body.full_name,
 =======
       full_name : request.body.full_name, 
@@ -107,10 +108,21 @@ const update_User = async (request, reply) => {
 =======
       full_name : request.body.full_name, 
 >>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+      full_name : request.body.full_name, 
+=======
+<<<<<<< HEAD
+      full_name : request.body.full_name,
+=======
+      full_name : request.body.full_name, 
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
       gender :request.body.gender,
       dob: request.body.dob,
       health_id: request.body.health_id,
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -122,7 +134,19 @@ const update_User = async (request, reply) => {
     if (request.body.full_name|request.body.gender|request.body.dob==""){
       return reply.code(400).send({error: "field required"});
     }
+=======
+<<<<<<< HEAD
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
+=======
+    if (request.body.full_name|request.body.gender|request.body.dob==""){
+      return reply.code(400).send({error: "field required"});
+    }
+<<<<<<< HEAD
 >>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
     const user = await user_model.update({ id: request.user.id }, update_document);
     if(user) {      
       const user_relative = await user_relative_model.findUnique(
@@ -139,10 +163,18 @@ const update_User = async (request, reply) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
+<<<<<<< HEAD
+=======
 
 >>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+<<<<<<< HEAD
 =======
 >>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
 // add relatives
 const add_members = async (request, reply) =>{
   let response = []
@@ -159,6 +191,7 @@ const add_members = async (request, reply) =>{
       };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
         return reply.code(400).send({error: "field required"});
@@ -168,7 +201,19 @@ const add_members = async (request, reply) =>{
       if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
         return reply.code(400).send({error: "field required"});
       }
+=======
+<<<<<<< HEAD
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
+=======
+      if (request.body.full_name|request.body.phone|request.body.dob|request.body.gender==""){
+        return reply.code(400).send({error: "field required"});
+      }
+<<<<<<< HEAD
 >>>>>>> bb7416bcb60a3765d9fb640a7bf3bf113cdc0564
+=======
+>>>>>>> 39b1ae252d1f024d6e8dd9212777a72f52ca9536
+>>>>>>> fbb2672ba8accdc2c8cddf013ecd997fdc0d21de
+>>>>>>> bad6c5f50833e6d5a11b0af6d172332cf994a365
       response.add_members = await user_relative_model.create(new_member)
       if (response.add_members) {
         response.user = await createUser(request, reply);
