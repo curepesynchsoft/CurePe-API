@@ -35,7 +35,7 @@ module.exports = function (fastify, opts, done) {
   });
 
   //Get Added member list
-  fastify.get("/added_member_list", {
+  fastify.get("/added_member_list/{ user.id }", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
     onRequest: [fastify.authenticate],
     schema: schema.retrieve_all_particular_members,
@@ -55,6 +55,8 @@ module.exports = function (fastify, opts, done) {
     schema: schema.retrieve,
     handler: controller.user,
   });
+
+  //Route for Upload user Profile
   fastify.post(
     "/media",
     {

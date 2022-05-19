@@ -14,7 +14,7 @@ const multer = require("fastify-multer");
 
 
 
-// Verify OTP
+// Mobile login with OTP
 const mobile_login = async (request, reply) => {
   let response_payload = {};
   response_payload.phone = request.body.phone;
@@ -136,6 +136,8 @@ const add_members = async (request, reply) =>{
         dob: request.body.dob,
         relation: request.body.relation
       };
+
+      // Required fields
       if (request.body.full_name=="" && request.body.phone=="" && request.body.dob=="" && request.body.gender=="" && request.body.relation==""){
         return reply.code(400).send({error: "field required"});
       }
@@ -174,6 +176,7 @@ const get_member = async (request, reply) => {
         userId: request.userId,
       },
     })
+    console.log(return_data)
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
@@ -204,6 +207,8 @@ const user = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+
+//Upload user profile 
 const upload_media = async (request, reply) => {
 
   // run a model
@@ -213,7 +218,7 @@ const upload_media = async (request, reply) => {
   const reference_id = request.query.reference_id;
 console.log(fileName,filePath,type,reference_id)
   try {
-    const media = await user_model.create(request, reply, {
+    const media = await media_model.create(request, reply, {
       reference_id: reference_id,
       type: type,
       path: filePath,
@@ -231,7 +236,7 @@ console.log(fileName,filePath,type,reference_id)
     switch (type) {
       case "check_in":
         // Update the Auth Media Path
-        update_results = await user_model.update({ id: request.user.id },
+        update_results = await media_model.update({ id: request.media.id },
           prisma,
           prisma.checkIns,
           prisma_payload
@@ -240,7 +245,7 @@ console.log(fileName,filePath,type,reference_id)
 
       case "check_out":
         // Update the Auth Media Path
-        update_results = await user_model.update({ id: request.user.id },
+        update_results = await media_model.update({ id: request.media.id },
           prisma,
           prisma.checkOuts,
           prisma_payload

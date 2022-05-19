@@ -16,6 +16,7 @@ const mobile_login_schema = {
     required: ['phone']
 };
 
+// Varify OTP Schema
 const verify_otp_schema = {
     type: 'object',
     properties: {
@@ -25,6 +26,7 @@ const verify_otp_schema = {
     required: ['phone']
 };
 
+// Add Family member/relatives schema
 const add_member_schema = {
     type:'object',
     properties: {
@@ -37,6 +39,7 @@ const add_member_schema = {
     required:['full_name','phone','gender','dob','relation'],
 }
 
+// Update user details schema
 const user_update_schema = {
     type: 'object',
     properties:{
@@ -47,6 +50,8 @@ const user_update_schema = {
     },
     required: ['full_name','gender','dob','health_id']
 };
+
+// Upload user Profile Schema
 const upload_schema = {
     type: "object",
     properties: {
