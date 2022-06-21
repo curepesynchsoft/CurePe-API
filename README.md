@@ -15,7 +15,7 @@ A step by step series of examples that tell you how to get a development env run
 
 1. Change .environment-example to .env and setup like this
 
-    ```APP_NAME="Fastify BoilerPlate"``` -> Your app name
+    ```APP_NAME="CurePe"``` -> Your app name
     
     ```APP_ENV=local``` -> Your app environment (local, staging, production)
 
