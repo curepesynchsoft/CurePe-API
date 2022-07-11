@@ -113,7 +113,7 @@ const update_User = async (request, reply) => {
 // add relatives
 const add_members = async (request, reply) =>{
   let response = []
-  // try {
+  try {
     const return_data = await user_model.findUnique({id:request.user.id});
     if(return_data) {
       const new_member = {
@@ -135,9 +135,9 @@ const add_members = async (request, reply) =>{
       }
       return reply.send({ data:{ ...response } });
     }
-  // } catch (error) {
-  //   return reply.code(404).send({ error: { ...error } });
-  // }
+  } catch (error) {
+    return reply.code(404).send({ error: { ...error } });
+  }
 };
 // FETCH All Added member DETAILS
 const get_member_details = async (request, reply) => {
