@@ -10,11 +10,7 @@ let utilites = require("../../common-helpers/utilities");
 let messages = require("../../constants/messages");
 const response = require("../../routes/schemas/common/response");
 const multer = require("fastify-multer");
-// const upload = multer({dest: 'uploads/'});
-
-
-
-// Verify OTP
+// Mobile login with OTP
 const mobile_login = async (request, reply) => {
   let response_payload = {};
   response_payload.phone = request.body.phone;
@@ -44,16 +40,12 @@ const mobile_login = async (request, reply) => {
       response_payload.user = await createUser(request, reply);
       //return the response
       return reply.send({ data: { ...response_payload } });
-      
     }
   } catch (error) {
     // console.log(error);
     return reply.code(500).send({ error: { ...error } });
   }
 };
-
-
-
 const createUser = async (request, reply) => {
   const new_user = {
     full_name: request.body.full_name,
@@ -71,7 +63,6 @@ const createUser = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
 // Verify OTP
 const verify_through_otp = async (request, reply) => {
   // run a model
@@ -95,7 +86,6 @@ const verify_through_otp = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
 // update user values
 const update_User = async (request, reply) => {
   try {
@@ -108,9 +98,8 @@ const update_User = async (request, reply) => {
       dob: request.body.dob,
       health_id: request.body.health_id,
     };
-    
     const user = await user_model.update({ id: request.user.id }, update_document);
-    if(user) {      
+    if(user) {
       const user_relative = await user_relative_model.findUnique(
         { phone: request.user.phone }
       )
@@ -121,11 +110,10 @@ const update_User = async (request, reply) => {
     return reply.code(400).send({ error: { ...error } });
   }
 };
-
 // add relatives
 const add_members = async (request, reply) =>{
   let response = []
-  try {
+  // try {
     const return_data = await user_model.findUnique({id:request.user.id});
     if(return_data) {
       const new_member = {
@@ -134,8 +122,10 @@ const add_members = async (request, reply) =>{
         phone: request.body.phone,
         gender:  request.body.gender,
         dob: request.body.dob,
-        relation: request.body.relation
+        relation: request.body.relation,
+        health_id: request.body.health_id,
       };
+      // Required fields
       if (request.body.full_name=="" && request.body.phone=="" && request.body.dob=="" && request.body.gender=="" && request.body.relation==""){
         return reply.code(400).send({error: "field required"});
       }
@@ -145,11 +135,10 @@ const add_members = async (request, reply) =>{
       }
       return reply.send({ data:{ ...response } });
     }
-  } catch (error) {
-    return reply.code(404).send({ error: { ...error } });
-  }
+  // } catch (error) {
+  //   return reply.code(404).send({ error: { ...error } });
+  // }
 };
-  
 // FETCH All Added member DETAILS
 const get_member_details = async (request, reply) => {
   // run a model
@@ -164,7 +153,6 @@ const get_member_details = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
 // FETCH All Added member Perticular member list
 const get_member = async (request, reply) => {
   // run a model
@@ -174,14 +162,13 @@ const get_member = async (request, reply) => {
         userId: request.userId,
       },
     })
+    console.log(return_data)
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
 //Fetch Added members by user
-
 const get_all_member_details = async (request, reply) => {
   // run a model
   try {
@@ -194,7 +181,6 @@ const get_all_member_details = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
 // FETCH USER DETAILS
 const user = async(request, reply) => {
   try {
@@ -204,8 +190,8 @@ const user = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+// Upload user profile
 const upload_media = async (request, reply) => {
-
   // run a model
   const fileName = request.file.filename;
   const filePath = request.file.path;
@@ -213,7 +199,7 @@ const upload_media = async (request, reply) => {
   const reference_id = request.query.reference_id;
 console.log(fileName,filePath,type,reference_id)
   try {
-    const media = await user_model.create(request, reply, {
+    const media = await media_model.create(request, reply, {
       reference_id: reference_id,
       type: type,
       path: filePath,
@@ -227,26 +213,23 @@ console.log(fileName,filePath,type,reference_id)
     prisma_payload.update = {
       auth_media_path: filePath,
     };
-
     switch (type) {
       case "check_in":
         // Update the Auth Media Path
-        update_results = await user_model.update({ id: request.user.id },
+        update_results = await media_model.update({ id: request.media.id },
           prisma,
           prisma.checkIns,
           prisma_payload
         );
         break;
-
       case "check_out":
         // Update the Auth Media Path
-        update_results = await user_model.update({ id: request.user.id },
+        update_results = await media_model.update({ id: request.media.id },
           prisma,
           prisma.checkOuts,
           prisma_payload
         );
         break;
-
       default:
         break;
     }
@@ -256,7 +239,6 @@ console.log(fileName,filePath,type,reference_id)
     return reply.code(422).send({ error: { ...error } });
   }
 };
-
 module.exports = {
   mobile_login,
   verify_through_otp,

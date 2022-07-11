@@ -29,29 +29,26 @@ model User {
   has_preferences     Boolean       @default(false)
   created_at          DateTime      @default(now())
   updated_at          DateTime      @updatedAt
-
   user_relatives      User_relatives[]
 }
-
 model User_relatives {
   id                   Int @id       @default(autoincrement())
   full_name            String
   phone                String        @unique
-  gender               String 
-  dob                  String        
+  gender               String
+  dob                  String
   relation             String
+  health_id            String        @default("name1234")
   created_at           DateTime      @default(now())
   updated_at           DateTime      @updatedAt
-  userId Int 
+  userId Int
   user User @relation(fields: [userId], references: [id])
-
 }
-
 model Admin {
   id                  Int           @id @default(autoincrement())
   full_name           String
   phone               String          @unique
-  otp                 Int             @default(1)      
+  otp                 Int             @default(1)
 }
 model Media {
   id           Int      @id @default(autoincrement())
@@ -61,5 +58,3 @@ model Media {
   created_at   DateTime @default(now())
   updated_at   DateTime @default(now()) @updatedAt
 }
-
-
