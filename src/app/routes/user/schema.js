@@ -16,6 +16,7 @@ const mobile_login_schema = {
     required: ['phone']
 };
 
+// varify OTP schema 
 const verify_otp_schema = {
     type: 'object',
     properties: {
@@ -25,6 +26,8 @@ const verify_otp_schema = {
     required: ['phone']
 };
 
+
+// Add member schema
 const add_member_schema = {
     type:'object',
     properties: {
@@ -32,11 +35,13 @@ const add_member_schema = {
         phone: { type: 'string',default:'+918765432123'},
         gender: { type:'string', default:'female'},
         dob: {type:'string',default:'01/01/2000'},
-        relation: {type: 'string', default:'sister'}
+        relation: {type: 'string', default:'sister'},
+        health_id: {type:'string', default:'name123'}
     },
-    required:['full_name','phone','gender','dob','relation'],
+    required:['full_name','phone','gender','dob','relation','health_id'],
 }
 
+// update user schema
 const user_update_schema = {
     type: 'object',
     properties:{
@@ -47,6 +52,8 @@ const user_update_schema = {
     },
     required: ['full_name','gender','dob','health_id']
 };
+
+// Uplaod user profile schema 
 const upload_schema = {
     type: "object",
     properties: {
