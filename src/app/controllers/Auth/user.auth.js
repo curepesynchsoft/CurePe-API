@@ -197,7 +197,7 @@ const upload_media = async (request, reply) => {
   const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
-console.log(fileName,filePath,type,reference_id)
+// console.log(fileName,filePath,type,reference_id)
   try {
     const media = await media_model.create(request, reply, {
       reference_id: reference_id,
