@@ -148,7 +148,7 @@ const get_member_details = async (request, reply) => {
         userId: request.user.id,
       },
     })
-    reply.send({ data: return_data });
+    reply.send({ data: {return_data} });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
@@ -163,6 +163,7 @@ const get_member = async (request, reply) => {
       },
     })
     // console.log(return_data)
+
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
@@ -176,7 +177,7 @@ const get_all_member_details = async (request, reply) => {
       // where: {
       //   userId: request.user.id,
       // },
-    reply.send({ data: return_data });
+    reply.send({ data: {return_data} });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
