@@ -63,6 +63,14 @@ const upload_schema = {
         description:
           "pre_installation | post_installation | check_in | check_out",
       },
+      image_type: {
+        type: "string",
+        example: "poster",
+        description: "Poster | Dangler | Big Poster | Checkout 2x4",
+      },
+    //   path:{
+    //     type:"string",
+    //   },
       reference_id: {
         type: "number",
         example: 1,
@@ -106,6 +114,13 @@ module.exports = {
         summary: "Media " + schema_group_name,
         querystring: upload_schema,
         headers: header_mediums,
+        response: response_mediums,
+    },
+    retrieve_uploads: {
+        description: "Retrieve details for " + schema_group_name,
+        tags: schema_group_tag,
+        summary: "Retrieve details for " + schema_group_name,
+        // headers: header_mediums,
         response: response_mediums,
     },
     add_member: {
