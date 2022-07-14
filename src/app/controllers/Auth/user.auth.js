@@ -96,7 +96,8 @@ const update_User = async (request, reply) => {
       full_name : request.body.full_name,
       gender :request.body.gender,
       dob: request.body.dob,
-      health_id: request.body.health_id,
+      // health_id: request.body.health_id,
+      img:request.body.image
     };
     const user = await user_model.update({ id: request.user.id }, update_document);
     if(user) {
@@ -177,7 +178,7 @@ const get_all_member_details = async (request, reply) => {
       // where: {
       //   userId: request.user.id,
       // },
-    return reply.send({ data: return_data });
+    reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
