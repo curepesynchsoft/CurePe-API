@@ -55,6 +55,11 @@ module.exports = function (fastify, opts, done) {
     schema: schema.retrieve,
     handler: controller.user,
   });
+  fastify.get("/user_details", {
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve_user,
+    handler: controller.user_details,
+  });
 
   // upload user profile
   fastify.post(

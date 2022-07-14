@@ -191,6 +191,14 @@ const user = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+const user_details = async(request, reply) => {
+  try {
+    const user_data = await user_model.findUnique({ id: request.user.id });
+    reply.send({ data: user_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 // Upload user profile
 const upload_media = async (request, reply) => {
   // run a model
@@ -260,5 +268,6 @@ module.exports = {
   add_members,
   get_all_member_details,
   user,
+  user_details,
   upload_media,
 };

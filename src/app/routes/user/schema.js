@@ -153,5 +153,12 @@ module.exports = {
         headers: header_mediums,
         response: response_mediums
     },
+    retrieve_user: {
+        description: 'Get the User Details',
+        tags: ['Authentication'],
+        summary: 'Get User details',
+        headers: header_mediums,
+        response: response_mediums
+    },
 
 };
