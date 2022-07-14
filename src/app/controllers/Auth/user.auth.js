@@ -169,7 +169,7 @@ const get_member = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-//Fetch Added members by user
+//Fetch all Added members by user
 const get_all_member_details = async (request, reply) => {
   // run a model
   try {
@@ -177,7 +177,7 @@ const get_all_member_details = async (request, reply) => {
       // where: {
       //   userId: request.user.id,
       // },
-    reply.send({ data: {return_data} });
+    return reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
@@ -194,17 +194,30 @@ const user = async(request, reply) => {
 // Upload user profile
 const upload_media = async (request, reply) => {
   // run a model
-  const fileName = request.file.filename;
-  const filePath = request.file.path;
+  // const fileName = request.file.filename;
+  // const filePath = request.file.path;
+  // const type = request.query.media_type;
+  // const reference_id = request.query.reference_id;
+  const Path = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
+
 // console.log(fileName,filePath,type,reference_id)
+
+  const image_type = request.query.image_type ?? "No Image Type Specified";
+
+  console.log(fileName,Path,type,reference_id)
+
   try {
     const media = await media_model.create(request, reply, {
+      // reference_id: reference_id,
+      // type: type,
+      // path: filePath,
+      // name: fileName,
       reference_id: reference_id,
       type: type,
-      path: filePath,
-      name: fileName,
+      path: Path,
+      media_type: image_type,
     });
     var prisma_payload = {};
     var update_results = {};
@@ -212,12 +225,13 @@ const upload_media = async (request, reply) => {
       id: reference_id,
     };
     prisma_payload.update = {
-      auth_media_path: filePath,
+      auth_media_path: Path,
     };
     switch (type) {
       case "check_in":
         // Update the Auth Media Path
-        update_results = await media_model.update({ id: request.media.id },
+        update_results = await media_model.update(
+          // { id: request.media.id },
           prisma,
           prisma.checkIns,
           prisma_payload
@@ -225,7 +239,8 @@ const upload_media = async (request, reply) => {
         break;
       case "check_out":
         // Update the Auth Media Path
-        update_results = await media_model.update({ id: request.media.id },
+        update_results = await media_model.update(
+          // { id: request.media.id },
           prisma,
           prisma.checkOuts,
           prisma_payload
