@@ -1,6 +1,8 @@
 const { use } = require("bcrypt/promises");
 const HttpStatusCode = require("http-status-codes/index");
+const { PrismaClient } = require("@prisma/client");
 // import Model from the models directory
+const prisma = new PrismaClient();
 const user_model = require("../../models/user.model");
 const user_relative_model = require("../../models/userRelative.model");
 const media_model = require("../../models/media.model");
@@ -202,14 +204,14 @@ const user_details = async(request, reply) => {
 };
 // Upload user profile
 const upload_media = async (request, reply) => {
+
+  console.log(request.file);
   // run a model
-  // const fileName = request.file.filename;
-  // const filePath = request.file.path;
-  // const type = request.query.media_type;
-  // const reference_id = request.query.reference_id;
-  const Path = request.file.path;
+  const fileName = request.file.filename;
+  const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
+<<<<<<< HEAD
 
 // console.log(fileName,filePath,type,reference_id)
 
@@ -217,16 +219,14 @@ const upload_media = async (request, reply) => {
 
   console.log(fileName,Path,type,reference_id)
 
+=======
+console.log(fileName,filePath,type,reference_id);
+>>>>>>> a5dfa369f423063f40271f0dfb938956d5de0d4f
   try {
-    const media = await media_model.create(request, reply, {
-      // reference_id: reference_id,
-      // type: type,
-      // path: filePath,
-      // name: fileName,
+    const media = await media_model.create(prisma, prisma.media, {
       reference_id: reference_id,
       type: type,
-      path: Path,
-      media_type: image_type,
+      path: filePath,
     });
     var prisma_payload = {};
     var update_results = {};
@@ -234,27 +234,29 @@ const upload_media = async (request, reply) => {
       id: reference_id,
     };
     prisma_payload.update = {
-      auth_media_path: Path,
+      auth_media_path: filePath,
     };
+
     switch (type) {
       case "check_in":
         // Update the Auth Media Path
         update_results = await media_model.update(
-          // { id: request.media.id },
           prisma,
           prisma.checkIns,
           prisma_payload
         );
         break;
+
       case "check_out":
         // Update the Auth Media Path
         update_results = await media_model.update(
-          // { id: request.media.id },
           prisma,
           prisma.checkOuts,
           prisma_payload
         );
+
         break;
+
       default:
         break;
     }
@@ -264,6 +266,65 @@ const upload_media = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+// const upload_media = async (request, reply) => {
+//   // run a model
+//   // const fileName = request.file.filename;
+//   // const filePath = request.file.path;
+//   // const type = request.query.media_type;
+//   // const reference_id = request.query.reference_id;
+//   const Path = request.file.path;
+//   const type = request.query.media_type;
+//   const reference_id = request.query.reference_id;
+//   const image_type = request.query.image_type ?? "No Image Type Specified";
+
+//   console.log(fileName,Path,type,reference_id)
+//   try {
+//     const media = await media_model.create(request, reply, {
+//       // reference_id: reference_id,
+//       // type: type,
+//       // path: filePath,
+//       // name: fileName,
+//       reference_id: reference_id,
+//       type: type,
+//       path: Path,
+//       media_type: image_type,
+//     });
+//     var prisma_payload = {};
+//     var update_results = {};
+//     prisma_payload.where = {
+//       id: reference_id,
+//     };
+//     prisma_payload.update = {
+//       auth_media_path: Path,
+//     };
+//     switch (type) {
+//       case "check_in":
+//         // Update the Auth Media Path
+//         update_results = await media_model.update(
+//           // { id: request.media.id },
+//           prisma,
+//           prisma.checkIns,
+//           prisma_payload
+//         );
+//         break;
+//       case "check_out":
+//         // Update the Auth Media Path
+//         update_results = await media_model.update(
+//           // { id: request.media.id },
+//           prisma,
+//           prisma.checkOuts,
+//           prisma_payload
+//         );
+//         break;
+//       default:
+//         break;
+//     }
+//     reply.send({ data: { media, update_operations: update_results } });
+//   } catch (error) {
+//     console.log(error);
+//     return reply.code(422).send({ error: { ...error } });
+//   }
+// };
 module.exports = {
   mobile_login,
   verify_through_otp,

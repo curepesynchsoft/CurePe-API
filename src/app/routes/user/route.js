@@ -62,6 +62,15 @@ module.exports = function (fastify, opts, done) {
   });
 
   // upload user profile
+  // fastify.post(
+  //   "/media",
+  //   {
+  //     schema: schema.uploads,
+  //     onRequest: [fastify.authenticate],
+  //     preHandler: fastify.uploader.single("file"),
+  //   },
+  //   controller.upload_media
+  // );
   fastify.post(
     "/media",
     {

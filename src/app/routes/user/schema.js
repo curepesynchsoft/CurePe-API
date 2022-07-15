@@ -69,9 +69,6 @@ const upload_schema = {
         example: "poster",
         description: "Poster | Dangler | Big Poster | Checkout 2x4",
       },
-    //   path:{
-    //     type:"string",
-    //   },
       reference_id: {
         type: "number",
         example: 1,
@@ -79,9 +76,27 @@ const upload_schema = {
       },
     },
   };
-
-
-
+// const upload_schema = {
+//     type: "object",
+//     properties: {
+//       media_type: {
+//         type: "string",
+//         example: "pre_installation",
+//         description:
+//           "pre_installation | post_installation | check_in | check_out",
+//       },
+//       type: {
+//         type: "string",
+//         example: "poster",
+//         description: "Poster | Dangler | Big Poster | Checkout 2x4",
+//       },
+//       reference_id: {
+//         type: "number",
+//         example: 1,
+//         description: "Reference Id for the Upload",
+//       },
+//     },
+//   };
 
 module.exports = {
 
