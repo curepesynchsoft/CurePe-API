@@ -212,44 +212,14 @@ const upload_media = async (request, reply) => {
   const reference_id = request.query.reference_id;
 console.log(fileName,filePath,type,reference_id);
   try {
-    const media = await media_model.create(prisma, prisma.media, {
+    const media = await media_model.create({
       reference_id: reference_id,
       type: type,
+      media_type:"media_type",
       path: filePath,
     });
-    var prisma_payload = {};
-    var update_results = {};
-    prisma_payload.where = {
-      id: reference_id,
-    };
-    prisma_payload.update = {
-      auth_media_path: filePath,
-    };
-
-    switch (type) {
-      case "check_in":
-        // Update the Auth Media Path
-        update_results = await media_model.update(
-          prisma,
-          prisma.checkIns,
-          prisma_payload
-        );
-        break;
-
-      case "check_out":
-        // Update the Auth Media Path
-        update_results = await media_model.update(
-          prisma,
-          prisma.checkOuts,
-          prisma_payload
-        );
-
-        break;
-
-      default:
-        break;
-    }
-    reply.send({ data: { media, update_operations: update_results } });
+    
+    reply.send({ data: { media } });
   } catch (error) {
     console.log(error);
     return reply.code(422).send({ error: { ...error } });
