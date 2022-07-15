@@ -37,11 +37,10 @@
     "nodemon": "^2.0.15",
     "twilio": "^3.73.1",
     "uuid": "^8.3.2"
-<<<<<<< HEAD
-=======
+
   },
   "devDependencies": {
     "prisma": "^4.1.0-dev.69"
->>>>>>> a5dfa369f423063f40271f0dfb938956d5de0d4f
+
   }
 }

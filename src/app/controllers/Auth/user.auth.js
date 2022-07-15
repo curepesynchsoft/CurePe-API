@@ -211,7 +211,7 @@ const upload_media = async (request, reply) => {
   const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
-<<<<<<< HEAD
+
 
 // console.log(fileName,filePath,type,reference_id)
 
@@ -219,9 +219,6 @@ const upload_media = async (request, reply) => {
 
   console.log(fileName,Path,type,reference_id)
 
-=======
-console.log(fileName,filePath,type,reference_id);
->>>>>>> a5dfa369f423063f40271f0dfb938956d5de0d4f
   try {
     const media = await media_model.create({
       reference_id: reference_id,
@@ -229,7 +226,7 @@ console.log(fileName,filePath,type,reference_id);
       media_type:"media_type",
       path: filePath,
     });
-    
+
     reply.send({ data: { media } });
   } catch (error) {
     console.log(error);
@@ -307,3 +304,4 @@ module.exports = {
   user_details,
   upload_media,
 };
+
