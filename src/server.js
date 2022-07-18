@@ -42,7 +42,8 @@ const storage = multer.diskStorage({
       request.query.reference_id +
       "/" +
       request.query.media_type;
-    fs.mkdirSync(path, { recursive: true });
+    // fs.mkdirSync(path, { recursive: true });
+    fs.promises.mkdir(path, { recursive: true });
 
     cb(null, path);
   },
