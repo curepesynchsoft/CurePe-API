@@ -38,7 +38,7 @@ const storage = multer.diskStorage({
   destination: function (request, file, cb) {
     const path =
       "uploads/" +
-      "/store-" +
+      // "/store-" +
       request.query.reference_id +
       "/" +
       request.query.media_type;
