@@ -7,11 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model admin {
-  id        Int    @id @default(autoincrement())
-  full_name String
-  phone     String @unique(map: "Admin_phone_key")
-  otp       Int    @default(1)
+model Admin {
+  id                  Int           @id @default(autoincrement())
+  full_name           String
+  phone               String          @unique
+  otp                 Int             @default(1)      
 }
 
 model media {
