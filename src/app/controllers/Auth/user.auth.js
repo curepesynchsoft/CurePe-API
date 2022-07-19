@@ -54,8 +54,8 @@ const createUser = async (request, reply) => {
     phone: request.body.phone,
     otp: utilites.GenerateOTP(),
   };
-  if (request.body.phone==""){
-    return reply.code(404).send({error: "field required"});
+  if (request.body.phone == "") {
+    return reply.code(404).send({ error: "field required" });
   }
   try {
     const return_data = await user_model.create(new_user);
@@ -91,18 +91,18 @@ const verify_through_otp = async (request, reply) => {
 // update user values
 const update_User = async (request, reply) => {
   try {
-    if (request.body.full_name == ""){
-      return reply.code(400).send({error: "field required"});
+    if (request.body.full_name == "") {
+      return reply.code(400).send({ error: "field required" });
     }
     const update_document = {
-      full_name : request.body.full_name,
-      gender :request.body.gender,
+      full_name: request.body.full_name,
+      gender: request.body.gender,
       dob: request.body.dob,
       // health_id: request.body.health_id,
-      image:request.body.image
+      image: request.body.image
     };
     const user = await user_model.update({ id: request.user.id }, update_document);
-    if(user) {
+    if (user) {
       const user_relative = await user_relative_model.findUnique(
         { phone: request.user.phone }
       )
@@ -114,29 +114,29 @@ const update_User = async (request, reply) => {
   }
 };
 // add relatives
-const add_members = async (request, reply) =>{
+const add_members = async (request, reply) => {
   let response = []
   try {
-    const return_data = await user_model.findUnique({id:request.user.id});
-    if(return_data) {
+    const return_data = await user_model.findUnique({ id: request.user.id });
+    if (return_data) {
       const new_member = {
         userId: request.user.id,
         full_name: request.body.full_name,
         phone: request.body.phone,
-        gender:  request.body.gender,
+        gender: request.body.gender,
         dob: request.body.dob,
         relation: request.body.relation,
         health_id: request.body.health_id,
       };
       // Required fields
-      if (request.body.full_name=="" && request.body.phone=="" && request.body.dob=="" && request.body.gender=="" && request.body.relation==""){
-        return reply.code(400).send({error: "field required"});
+      if (request.body.full_name == "" && request.body.phone == "" && request.body.dob == "" && request.body.gender == "" && request.body.relation == "") {
+        return reply.code(400).send({ error: "field required" });
       }
       response.add_members = await user_relative_model.create(new_member)
       if (response.add_members) {
         response.user = await createUser(request, reply);
       }
-      return reply.send({ data:{ ...response } });
+      return reply.send({ data: { ...response } });
     }
   } catch (error) {
     return reply.code(404).send({ error: { ...error } });
@@ -151,7 +151,7 @@ const get_member_details = async (request, reply) => {
         userId: request.user.id,
       },
     })
-    reply.send({ data: {return_data} });
+    reply.send({ data: { return_data } });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
@@ -160,7 +160,7 @@ const get_member_details = async (request, reply) => {
 const get_member = async (request, reply) => {
   // run a model
   try {
-    const return_data = await user_relative_model.findUnique({ id: request.user.id},{
+    const return_data = await user_relative_model.findUnique({ id: request.user.id }, {
       where: {
         userId: request.userId,
       },
@@ -177,16 +177,16 @@ const get_all_member_details = async (request, reply) => {
   // run a model
   try {
     const return_data = await user_relative_model.findMany(request.body);
-      // where: {
-      //   userId: request.user.id,
-      // },
+    // where: {
+    //   userId: request.user.id,
+    // },
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
 };
 // FETCH USER DETAILS
-const user = async(request, reply) => {
+const user = async (request, reply) => {
   try {
     const user_data = await user_model.findMany(request.body);
     reply.send({ data: user_data });
@@ -194,7 +194,7 @@ const user = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-const user_details = async(request, reply) => {
+const user_details = async (request, reply) => {
   try {
     const user_data = await user_model.findUnique({ id: request.user.id });
     reply.send({ data: user_data });
@@ -213,17 +213,17 @@ const upload_media = async (request, reply) => {
   const reference_id = request.query.reference_id;
 
 
-// console.log(fileName,filePath,type,reference_id)
+  // console.log(fileName,filePath,type,reference_id)
 
   const image_type = request.query.image_type ?? "No Image Type Specified";
 
-  console.log(fileName,Path,type,reference_id)
+  console.log(fileName, filePath, type, reference_id);
 
   try {
     const media = await media_model.create({
       reference_id: reference_id,
       type: type,
-      media_type:"media_type",
+      media_type: "media_type",
       path: filePath,
     });
 

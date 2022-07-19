@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/adarshsrii/fastify-playground#readme",
   "dependencies": {
-    "@prisma/client": "^3.9.1",
+    "@prisma/client": "^4.0.0",
     "bcrypt": "^5.0.1",
     "dotenv": "^16.0.0",
     "fastify": "^3.24.0",
@@ -38,10 +38,8 @@
     "nodemon": "^2.0.15",
     "twilio": "^3.73.1",
     "uuid": "^8.3.2"
-
   },
   "devDependencies": {
-    "prisma": "^4.1.0-dev.69"
-
+    "prisma": "^4.0.0"
   }
 }
