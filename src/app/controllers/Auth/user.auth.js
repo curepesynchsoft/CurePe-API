@@ -212,12 +212,7 @@ const upload_media = async (request, reply) => {
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
 
-
-  // console.log(fileName,filePath,type,reference_id)
-
   const image_type = request.query.image_type ?? "No Image Type Specified";
-
-  console.log(fileName, filePath, type, reference_id);
 
   try {
     const media = await media_model.create({
@@ -229,7 +224,7 @@ const upload_media = async (request, reply) => {
 
     if(type==='profile'){
       await user_model.update({ id: reference_id }, {
-        image : filePath,
+        image : filePath, 
       });
     }
 
