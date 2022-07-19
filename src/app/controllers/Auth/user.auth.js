@@ -215,9 +215,15 @@ console.log(fileName,filePath,type,reference_id);
     const media = await media_model.create({
       reference_id: reference_id,
       type: type,
-      media_type:"media_type",
+      media_type:type,
       path: filePath,
     });
+
+    if(type==='profile'){
+      await user_model.update({ id: reference_id }, {
+        image : filePath,
+      });
+    }
     
     reply.send({ data: { media } });
   } catch (error) {
@@ -225,6 +231,7 @@ console.log(fileName,filePath,type,reference_id);
     return reply.code(422).send({ error: { ...error } });
   }
 };
+
 // const upload_media = async (request, reply) => {
 //   // run a model
 //   // const fileName = request.file.filename;
@@ -295,4 +302,5 @@ module.exports = {
   user,
   user_details,
   upload_media,
+  
 };
