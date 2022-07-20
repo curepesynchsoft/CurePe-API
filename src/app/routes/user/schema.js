@@ -48,10 +48,8 @@ const user_update_schema = {
         full_name:{type:'string', default:'Pragati'},
         gender:{type:'string', default:'female'},
         dob:{type:'string' , default:'26/01/1999'},
-        // health_id: {type:'string', default: '12345679980'},
-        image:{type:'string',default:'curepe.jpg'}
     },
-    required: ['full_name','gender','dob','image']
+    required: ['full_name','gender','dob']
 };
 
 // Uplaod user profile schema 
