@@ -12,7 +12,21 @@ model Admin {
   full_name String
   phone     String @unique
   otp       Int    @default(1)
+  subadmin      Subadmin[]
 }
+
+model Subadmin {
+  id         Int      @id @default(autoincrement())
+  full_name  String
+  phone      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  adminId     Int
+  admin       Admin     @relation(fields: [adminId], references: [id])
+
+  @@index([adminId], map: "model Subadmin_adminId_fkey")
+}
+
 
 model media {
   id           Int      @id @default(autoincrement())

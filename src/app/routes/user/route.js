@@ -41,6 +41,12 @@ module.exports = function (fastify, opts, done) {
     handler: controller.get_member_details,
   });
 
+  fastify.get("/added_member", {
+    // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
+    onRequest: [fastify.authenticate],
+    schema: schema.all_particular_members,
+    handler: controller.get_member,
+  });
   // Get All Added member list
   fastify.get("/added_all_member_list", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint

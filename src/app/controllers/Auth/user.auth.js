@@ -158,13 +158,12 @@ const get_member_details = async (request, reply) => {
 const get_member = async (request, reply) => {
   // run a model
   try {
-    const return_data = await user_relative_model.findUnique({ id: request.user.id }, {
+    const return_data = await user_relative_model.findMany({
       where: {
         userId: request.userId,
       },
     })
     // console.log(return_data)
-
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });

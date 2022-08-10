@@ -29,7 +29,18 @@ const admin_update_schema = {
     },
     required: ['full_name','phone']
 };
-
+const add_member_schema = {
+    type:'object',
+    properties: {
+        full_name: { type:'string', default:'Pragati Tiwari'},
+        phone: { type: 'string',default:'+918765432123'},
+        otp: { type:'string', default:'otp'},
+        // dob: {type:'string',default:'01/01/2000'},
+        // relation: {type: 'string', default:'sister'},
+        // health_id: {type:'string', default:'name123'}
+    },
+    required:['full_name','phone','otp'],
+}
 
 // const user_login_schema = {
 //     type: 'object',
@@ -71,6 +82,14 @@ module.exports = {
         tags: ['Admin'],
         summary: 'Get all the User details',
         headers: header_mediums,
+        response: response_mediums
+    },
+    add_member: {
+        summary: 'User can add their family member with the help of their unique generated token',
+        description:'add member Data',
+        tags: ['Authentication'],
+        headers:header_mediums,
+        body: add_member_schema,
         response: response_mediums
     },
 

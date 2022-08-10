@@ -152,6 +152,13 @@ module.exports = {
         headers: header_mediums,
         response: response_mediums
     },
+    all_particular_members: {
+        description: 'Get the User details',
+        tags: ['Authentication'],
+        summary: 'Retrieve all perticular members details with the help of any token.',
+        headers: header_mediums,
+        response: response_mediums
+    },
     retrieve_all_members: {
         description: 'Get the User details',
         tags: ['Authentication'],

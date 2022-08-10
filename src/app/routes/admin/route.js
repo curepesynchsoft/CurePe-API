@@ -28,6 +28,11 @@ module.exports = function (fastify, opts, done) {
     schema: schema.retrieve,
     handler: controller.admin,
   });
+  // fastify.post("/add_members",{    
+  //   onRequest: [fastify.authenticate],
+  //   schema:schema.add_member,
+  //   handler: controller.add_subadmin
+  // });
 
   // fastify.post('/update-details', {
   //   schema: schema.

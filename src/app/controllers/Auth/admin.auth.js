@@ -2,6 +2,7 @@ const { use } = require("bcrypt/promises");
 const HttpStatusCode = require("http-status-codes/index");
 // import Model from the models directory
 const admin_model = require("../../models/admin.model");
+// const admin_model = require("../../models/subadmin.model");
 // importing the utilities plugin for extra jobs
 let utilites = require("../../common-helpers/utilities");
 // messages constants
@@ -117,6 +118,30 @@ const admin = async(request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+// const add_subadmin = async (request, reply) => {
+//   let response = []
+//   try {
+//     const return_data = await admin_model.findUnique({ id: request.user.id });
+//     if (return_data) {
+//       const new_member = {
+//         adminId: request.admin.id,
+//         full_name: request.body.full_name,
+//         phone: request.body.phone,
+//         otp: request.body.otp,
+//         // dob: request.body.dob,
+//         // relation: request.body.relation,
+//         // health_id: request.body.health_id,
+//       };
+//       response.add_members = await subadmin_model.create(new_member)
+//       if (response.add_members) {
+//         response.user = await createUser(request, reply);
+//       }
+//       return reply.send({ data: { ...response } });
+//     }
+//   } catch (error) {
+//     return reply.code(404).send({ error: { ...error } });
+//   }
+// };
 
 // update user values
 
@@ -125,4 +150,5 @@ const admin = async(request, reply) => {
     verify_through_otp,
     admin,
     update_admin,
+    // add_subadmin
   }
