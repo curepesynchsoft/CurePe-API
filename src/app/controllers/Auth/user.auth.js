@@ -155,16 +155,15 @@ const get_member_details = async (request, reply) => {
   }
 };
 // FETCH All Added member Perticular member list
-const get_member = async (request, reply) => {
+const per_member_details = async (request, reply) => {
   // run a model
   try {
     const return_data = await user_relative_model.findMany({
       where: {
-        userId: request.userId,
+        userId: request.user.id,
       },
     })
-    // console.log(return_data)
-    reply.send({ data: return_data });
+    reply.send({ data:  return_data  });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
@@ -296,12 +295,13 @@ module.exports = {
   verify_through_otp,
   update_User,
   get_member_details,
-  get_member,
+  // get_member,
   add_members,
   get_all_member_details,
   user,
   user_details,
   upload_media,
+  per_member_details
   
 };
 
