@@ -161,9 +161,9 @@ module.exports = {
     },
     retrieve_all_members: {
         description: 'Get the User details',
-        tags: ['Authentication'],
+        //  tags: ['Authentication'],
         summary: 'Retrieve all members details with the help of any token.',
-        headers: header_mediums,
+        // headers: header_mediums,
         response: response_mediums
     },
     retrieve: {
