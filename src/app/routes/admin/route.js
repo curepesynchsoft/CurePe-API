@@ -22,20 +22,19 @@ module.exports = function (fastify, opts, done) {
     schema:schema.update,
     handler: controller.update_admin,
   });
-    //Get User List
+  // Get User List
   fastify.get("/admin", {
     onRequest: [fastify.authenticate],
     schema: schema.retrieve,
     handler: controller.admin,
   });
-  // fastify.post("/add_members",{    
-  //   onRequest: [fastify.authenticate],
-  //   schema:schema.add_member,
-  //   handler: controller.add_subadmin
-  // });
+  fastify.post("/add_subadmin", {
+    schema: schema.add_subadmin,
+    handler: controller.add_subadmin,
+  });
 
   // fastify.post('/update-details', {
   //   schema: schema.
-  // })
+  // });
   done();
 }

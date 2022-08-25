@@ -34,7 +34,7 @@ const add_member_schema = {
     properties: {
         full_name: { type:'string', default:'Pragati Tiwari'},
         phone: { type: 'string',default:'+918765432123'},
-        otp: { type:'string', default:'otp'},
+        otp: { type:'string', default:'123456'},
         // dob: {type:'string',default:'01/01/2000'},
         // relation: {type: 'string', default:'sister'},
         // health_id: {type:'string', default:'name123'}
@@ -42,15 +42,16 @@ const add_member_schema = {
     required:['full_name','phone','otp'],
 }
 
-// const user_login_schema = {
-//     type: 'object',
-//     properties: {
-//         email: { type: 'string', default: 'ada.srivastava@synchsoft.in'},
-//         passkey: { type: 'string', default: 'password@!' },
-//     },
-
-//     required: ['email','passkey']
-// }
+const add_subadmin_schema = {
+    type: 'object',
+    properties: {
+        full_name: { type: 'string', default: 'Atul' },
+        phone: { type: 'string', default: '+ 919651964208'
+    },
+    otp: { type: 'number', example: '591215' }
+},
+    required: ['full_name', 'phone', 'otp'],
+}
 
 
 module.exports = {
@@ -84,12 +85,12 @@ module.exports = {
         headers: header_mediums,
         response: response_mediums
     },
-    add_member: {
+    add_subadmin: {
         summary: 'User can add their family member with the help of their unique generated token',
-        description:'add member Data',
-        tags: ['Authentication'],
-        headers:header_mediums,
-        body: add_member_schema,
+        description: 'add member Data',
+        tags: ['Admin'],
+        //headers:header_mediums,
+        body: add_subadmin_schema,
         response: response_mediums
     },
 

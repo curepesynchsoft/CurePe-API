@@ -4,6 +4,7 @@ const { PrismaClient } = require("@prisma/client");
 // import Model from the models directory
 const prisma = new PrismaClient();
 const user_model = require("../../models/user.model");
+const report_model = require("../../models/report.model");
 const user_relative_model = require("../../models/userRelative.model");
 const media_model = require("../../models/media.model");
 // importing the utilities plugin for extra jobs
@@ -145,9 +146,9 @@ const get_member_details = async (request, reply) => {
   // run a model
   try {
     const return_data = await user_relative_model.findMany({
-      where: {
-        userId: request.user.id,
-      },
+      // where: {
+      //   userId: request.user.id,
+      // },
     })
     reply.send({ data: { return_data } });
   } catch (error) {
@@ -165,6 +166,20 @@ const per_member_details = async (request, reply) => {
     })
     // console.log({ data: return_data });
     reply.send({ data:  return_data  });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
+// FETCH All Added member Perticular member list
+const get_member = async (request, reply) => {
+  // run a model
+  try {
+    const return_data = await user_relative_model.findUnique({ id: request.user.id }, {
+      where: {
+        userId: request.userId,
+      },
+    })
+    reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
@@ -201,6 +216,7 @@ const user_details = async (request, reply) => {
 };
 // Upload user profile
 const upload_media = async (request, reply) => {
+  report = []
 
   console.log(request.file);
   // run a model
@@ -211,20 +227,52 @@ const upload_media = async (request, reply) => {
 
   const image_type = request.query.image_type ?? "No Image Type Specified";
 
-  try {
-    const media = await media_model.create({
+  // try {
+    const media = {
       reference_id: reference_id,
       type: type,
       media_type:type,
       path: filePath,
-    });
+  };
+  report.upload_media = await media_model.create(media);
+  // return report
 
-    if(type==='profile'){
+  reply.send({ data: { media } });
+    
+  if (media.type === 'profile') {
       await user_model.update({ id: reference_id }, {
-        image : filePath, 
+        image: filePath,
+      });
+    
+  }
+  // } catch (error) {
+  //   console.log(error);
+  //   return reply.code(422).send({ error: { ...error } });
+  // }
+};
+const upload_report = async (request, reply) => {
+
+  // console.log(request.file);
+  // run a model
+  const fileName = request.file.filename;
+  const filePath = request.file.path;
+  const type = request.query.media_type;
+  const reference_id = request.query.reference_id;
+  const image_type = request.query.image_type ?? "No Image Type Specified";
+
+  try {
+    const media = await report_model.create({
+      reference_id: reference_id,
+      type: type,
+      media_type: type,
+      path: filePath,
+    });
+    reply.send({ data: { media } });
+    if (type === 'profile') {
+      await user_model.update({ id: reference_id }, {
+        report: filePath,
       });
     }
-
     reply.send({ data: { media } });
   } catch (error) {
     console.log(error);
@@ -232,77 +280,19 @@ const upload_media = async (request, reply) => {
   }
 };
 
-// const upload_media = async (request, reply) => {
-//   // run a model
-//   // const fileName = request.file.filename;
-//   // const filePath = request.file.path;
-//   // const type = request.query.media_type;
-//   // const reference_id = request.query.reference_id;
-//   const Path = request.file.path;
-//   const type = request.query.media_type;
-//   const reference_id = request.query.reference_id;
-//   const image_type = request.query.image_type ?? "No Image Type Specified";
 
-//   console.log(fileName,Path,type,reference_id)
-//   try {
-//     const media = await media_model.create(request, reply, {
-//       // reference_id: reference_id,
-//       // type: type,
-//       // path: filePath,
-//       // name: fileName,
-//       reference_id: reference_id,
-//       type: type,
-//       path: Path,
-//       media_type: image_type,
-//     });
-//     var prisma_payload = {};
-//     var update_results = {};
-//     prisma_payload.where = {
-//       id: reference_id,
-//     };
-//     prisma_payload.update = {
-//       auth_media_path: Path,
-//     };
-//     switch (type) {
-//       case "check_in":
-//         // Update the Auth Media Path
-//         update_results = await media_model.update(
-//           // { id: request.media.id },
-//           prisma,
-//           prisma.checkIns,
-//           prisma_payload
-//         );
-//         break;
-//       case "check_out":
-//         // Update the Auth Media Path
-//         update_results = await media_model.update(
-//           // { id: request.media.id },
-//           prisma,
-//           prisma.checkOuts,
-//           prisma_payload
-//         );
-//         break;
-//       default:
-//         break;
-//     }
-//     reply.send({ data: { media, update_operations: update_results } });
-//   } catch (error) {
-//     console.log(error);
-//     return reply.code(422).send({ error: { ...error } });
-//   }
-// };
 module.exports = {
   mobile_login,
   verify_through_otp,
   update_User,
   get_member_details,
-  // get_member,
+  get_member,
   add_members,
   get_all_member_details,
   user,
   user_details,
   upload_media,
+  upload_report,
   per_member_details
-  
 };
 

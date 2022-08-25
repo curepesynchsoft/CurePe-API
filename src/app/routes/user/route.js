@@ -1,3 +1,4 @@
+
 const controller = require("../../controllers/Auth/user.auth");
 const schema = require("../user/schema");
 
@@ -45,12 +46,13 @@ module.exports = function (fastify, opts, done) {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
     onRequest: [fastify.authenticate],
     schema: schema.all_particular_members,
-    handler: controller.per_member_details,
+    handler: controller.get_member,
+  
   });
   // Get All Added member list
   fastify.get("/added_all_member_list", {
     // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
-    onRequest: [fastify.authenticate],
+    // onRequest: [fastify.authenticate],
     schema: schema.retrieve_all_members,
     handler: controller.get_all_member_details,
   });
@@ -85,6 +87,15 @@ module.exports = function (fastify, opts, done) {
       preHandler: fastify.uploader.single("file"),
     },
     controller.upload_media
+  );
+  fastify.post(
+    "/upload-report",
+    {
+      schema: schema.uploads_report,
+      onRequest: [fastify.authenticate],
+      preHandler: fastify.uploader.single("file"),
+    },
+    controller.upload_report
   );
   
   done();

@@ -74,27 +74,27 @@ const upload_schema = {
       },
     },
   };
-// const upload_schema = {
-//     type: "object",
-//     properties: {
-//       media_type: {
-//         type: "string",
-//         example: "pre_installation",
-//         description:
-//           "pre_installation | post_installation | check_in | check_out",
-//       },
-//       type: {
-//         type: "string",
-//         example: "poster",
-//         description: "Poster | Dangler | Big Poster | Checkout 2x4",
-//       },
-//       reference_id: {
-//         type: "number",
-//         example: 1,
-//         description: "Reference Id for the Upload",
-//       },
-//     },
-//   };
+const upload_report = {
+    type: "object",
+    properties: {
+      media_type: {
+        type: "string",
+        example: "pre_installation",
+        description:
+          "pre_installation | post_installation | check_in | check_out",
+      },
+      type: {
+        type: "string",
+        example: "poster",
+        description: "Poster | Dangler | Big Poster | Checkout 2x4",
+      },
+      reference_id: {
+        type: "number",
+        example: 1,
+        description: "Reference Id for the Upload",
+      },
+    },
+  };
 
 module.exports = {
 
@@ -130,13 +130,13 @@ module.exports = {
         headers: header_mediums,
         response: response_mediums,
     },
-    retrieve_uploads: {
-        description: "Retrieve details for " + schema_group_name,
-        tags: schema_group_tag,
-        summary: "Retrieve details for " + schema_group_name,
-        // headers: header_mediums,
-        response: response_mediums,
-    },
+    // retrieve_uploads: {
+    //     description: "Retrieve details for " + schema_group_name,
+    //     tags: schema_group_tag,
+    //     summary: "Retrieve details for " + schema_group_name,
+    //     // headers: header_mediums,
+    //     response: response_mediums,
+    // },
     add_member: {
         summary: 'User can add their family member with the help of their unique generated token',
         description:'add member Data',
@@ -148,10 +148,17 @@ module.exports = {
     retrieve_all_particular_members: {
         description: 'Get the User details',
         tags: ['Authentication'],
-        summary: 'Retrieve all members details with the help of any token',
+        summary: 'Retrieve all members details with the help of any token.',
         headers: header_mediums,
         response: response_mediums
     },
+    // retrieve_all_particular_members: {
+    //     description: 'Get the User details',
+    //     tags: ['Authentication'],
+    //     summary: 'Retrieve all members details with the help of any token',
+    //     headers: header_mediums,
+    //     response: response_mediums
+    // },
     all_particular_members: {
         description: 'Get the User details',
         tags: ['Authentication'],
@@ -161,9 +168,9 @@ module.exports = {
     },
     retrieve_all_members: {
         description: 'Get the User details',
-        tags: ['Authentication'],
+        // tags: ['Authentication'],
         summary: 'Retrieve all members details with the help of any token.',
-        headers: header_mediums,
+        // headers: header_mediums,
         response: response_mediums
     },
     retrieve: {
@@ -179,6 +186,22 @@ module.exports = {
         summary: 'Get User details',
         headers: header_mediums,
         response: response_mediums
+    },
+    uploads_report: {
+        description: "Report " + schema_group_name + " for the Curepe app",
+        tags: schema_group_tag,
+        tags: ['Authentication'],
+        summary: " " + schema_group_name,
+        querystring: upload_report,
+        headers: header_mediums,
+        response: response_mediums,
+    },
+    retrieve_report: {
+        description: "Retrieve details for " + schema_group_name,
+        tags: schema_group_tag,
+        summary: "Retrieve details for " + schema_group_name,
+        // headers: header_mediums,
+        response: response_mediums,
     },
 
 };

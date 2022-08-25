@@ -12,6 +12,11 @@ model Admin {
   full_name String
   phone     String @unique
   otp       Int    @default(1)
+  time_zone           String           @default("UTC")
+  remember_token      Boolean          @default(false)
+  verified            Boolean          @default(false)
+  skipped_preferences Boolean          @default(false)
+  has_preferences     Boolean          @default(false)
   subadmin      Subadmin[]
 }
 
@@ -19,6 +24,7 @@ model Subadmin {
   id         Int      @id @default(autoincrement())
   full_name  String
   phone      String   @unique
+  otp       Int    @default(1)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
   adminId     Int
@@ -38,6 +44,26 @@ model media {
   updated_at   DateTime @default(now()) @db.Timestamp(0)
 }
 
+model report {
+  id           Int      @id @default(autoincrement())
+  reference_id Int      @default(0)
+  type         String   @default("")
+  media_type   String?  @default("")
+  path         String   @default("")
+  created_at   DateTime @default(now()) @db.Timestamp(0)
+  updated_at   DateTime @default(now()) @db.Timestamp(0)
+}
+
+model checkup {
+  id           Int      @id @default(autoincrement())
+  reference_id Int      @default(0)
+  type         String   @default("")
+  media_type   String?  @default("")
+  path         String   @default("")
+  created_at   DateTime @default(now()) @db.Timestamp(0)
+  updated_at   DateTime @default(now()) @db.Timestamp(0)
+}
+
 model User {
   id                  Int              @id @default(autoincrement())
   full_name           String           @default("")
@@ -47,6 +73,9 @@ model User {
   otp                 Int              @default(1)
   dob                 String           @default("02/2/2000")
   image               String           @default("")
+  checkup             String           @default("")
+  report              String           @default("")
+  insurance           String           @default("")
   health_id           String           @default("name1234")
   passkey             String           @default("")
   time_zone           String           @default("UTC")
