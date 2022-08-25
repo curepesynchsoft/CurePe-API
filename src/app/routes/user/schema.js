@@ -168,7 +168,11 @@ module.exports = {
     },
     retrieve_all_members: {
         description: 'Get the User details',
+<<<<<<< HEAD
         // tags: ['Authentication'],
+=======
+        //  tags: ['Authentication'],
+>>>>>>> 8957ed0010b66c1de95372412419307b5a0154b4
         summary: 'Retrieve all members details with the help of any token.',
         // headers: header_mediums,
         response: response_mediums
