@@ -3,6 +3,7 @@ const HttpStatusCode = require("http-status-codes/index");
 // import Model from the models directory
 const admin_model = require("../../models/admin.model");
 const subadmin_model = require("../../models/subadmin.model");
+const user_relative_model = require("../../models/userRelative.model");
 // importing the utilities plugin for extra jobs
 let utilites = require("../../common-helpers/utilities");
 // messages constants
@@ -132,6 +133,20 @@ const add_subadmin = async (request, reply) => {
   // }
   //
 }
+const per_member_details = async (request, reply) => {
+  // run a model
+  try {
+  // userId: request.body.userId;
+    const return_data = await user_relative_model.findMany({
+      where: {
+        userId: request.body.userId,
+      },
+    })
+    reply.send({ data: return_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 
 // update user values
 
@@ -140,5 +155,6 @@ const add_subadmin = async (request, reply) => {
     verify_through_otp,
     admin,
     update_admin,
-    add_subadmin
+    add_subadmin,
+    per_member_details
   }

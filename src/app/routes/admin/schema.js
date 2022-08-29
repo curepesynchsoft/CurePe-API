@@ -52,6 +52,14 @@ const add_subadmin_schema = {
 },
     required: ['full_name', 'phone', 'otp'],
 }
+const perticular_member = {
+    type: 'object',
+    properties: {
+    userId: { type: 'integer', default: '1' },
+    },
+    required: ['userId'],
+}
+
 
 
 module.exports = {
@@ -93,5 +101,13 @@ module.exports = {
         body: add_subadmin_schema,
         response: response_mediums
     },
+    per_member: {
+        summary: 'user member details',
+        description: 'member details',
+        tags: ['Admin'],
+        body: perticular_member,
+        response: response_mediums
+        
+    }
 
 }
