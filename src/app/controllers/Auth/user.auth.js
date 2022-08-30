@@ -165,7 +165,7 @@ const per_member_details = async (request, reply) => {
       },
     })
     // console.log({ data: return_data });
-    reply.send({ data:  return_data  });
+    reply.send({ data: { return_data } });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
