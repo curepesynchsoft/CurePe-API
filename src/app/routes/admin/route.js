@@ -32,8 +32,8 @@ module.exports = function (fastify, opts, done) {
     schema: schema.add_subadmin,
     handler: controller.add_subadmin,
   });
-  fastify.post("/per-member", {
-    schema: schema.per_member,
+  fastify.get("/per-member/:userId", {
+    // schema: schema.per_member,
     handler: controller.per_member_details,
   });
 

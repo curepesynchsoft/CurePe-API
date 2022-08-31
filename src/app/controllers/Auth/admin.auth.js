@@ -135,17 +135,22 @@ const add_subadmin = async (request, reply) => {
 }
 const per_member_details = async (request, reply) => {
   // run a model
-  try {
+  // try {
   // userId: request.body.userId;
-    const return_data = await user_relative_model.findMany({
-      where: {
-        userId: request.body.userId,
-      },
+    const {userId}= request.params;
+  const return_data = await user_relative_model.findMany({
+    where: {
+      userId: Number(userId
+      )
+    }
+      // where: {
+      //   userId: request.query.userId,
+      // },
     })
     reply.send({ data: return_data });
-  } catch (error) {
-    return reply.code(422).send({ error: { ...error } });
-  }
+  // } catch (error) {
+  //   return reply.code(422).send({ error: { ...error } });
+  // }
 };
 
 // update user values
