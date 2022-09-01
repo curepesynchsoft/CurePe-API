@@ -37,6 +37,11 @@ module.exports = function (fastify, opts, done) {
     handler: controller.per_member_details,
   });
 
+  fastify.get("/user_details/:id", {
+    // schema: schema.per_member,
+    handler: controller.user_details,
+  });
+
 
   // fastify.post('/update-details', {
   //   schema: schema.

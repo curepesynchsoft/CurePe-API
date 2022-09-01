@@ -4,6 +4,7 @@ const HttpStatusCode = require("http-status-codes/index");
 const admin_model = require("../../models/admin.model");
 const subadmin_model = require("../../models/subadmin.model");
 const user_relative_model = require("../../models/userRelative.model");
+const user_model = require("../../models/user.model");
 // importing the utilities plugin for extra jobs
 let utilites = require("../../common-helpers/utilities");
 // messages constants
@@ -135,7 +136,7 @@ const add_subadmin = async (request, reply) => {
 }
 const per_member_details = async (request, reply) => {
   // run a model
-  // try {
+  try {
   // userId: request.body.userId;
     const {userId}= request.params;
   const return_data = await user_relative_model.findMany({
@@ -148,9 +149,28 @@ const per_member_details = async (request, reply) => {
       // },
     })
     reply.send({ data: return_data });
-  // } catch (error) {
-  //   return reply.code(422).send({ error: { ...error } });
-  // }
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
+const user_details = async (request, reply) => {
+  // run a model
+  try {
+    // userId: request.body.userId;
+    const { id } = request.params;
+    const return_data = await user_model.findMany({
+      where: {
+        id: Number(id
+        )
+      }
+      // where: {
+      //   userId: request.query.userId,
+      // },
+    })
+    reply.send({ data: return_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
 };
 
 // update user values
@@ -161,5 +181,6 @@ const per_member_details = async (request, reply) => {
     admin,
     update_admin,
     add_subadmin,
-    per_member_details
+    per_member_details,
+    user_details
   }

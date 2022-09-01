@@ -94,7 +94,16 @@ const upload_report = {
         description: "Reference Id for the Upload",
       },
     },
-  };
+};
+  
+// const parse = {
+//     type: 'object',
+//     properties: {
+//         text: { type: 'test', default: 'abcd' },
+//     },
+//     required: ['userId'],
+// }
+
 
 module.exports = {
 

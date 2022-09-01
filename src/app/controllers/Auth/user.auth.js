@@ -281,6 +281,7 @@ const upload_report = async (request, reply) => {
 };
 
 
+
 module.exports = {
   mobile_login,
   verify_through_otp,
@@ -293,6 +294,6 @@ module.exports = {
   user_details,
   upload_media,
   upload_report,
-  per_member_details
+  per_member_details,
 };
 
