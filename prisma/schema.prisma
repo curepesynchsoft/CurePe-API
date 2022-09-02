@@ -17,20 +17,17 @@ model Admin {
   verified            Boolean          @default(false)
   skipped_preferences Boolean          @default(false)
   has_preferences     Boolean          @default(false)
-  subadmin      Subadmin[]
+
 }
 
-model Subadmin {
+model SubscriptionPlan {
   id         Int      @id @default(autoincrement())
-  full_name  String
-  phone      String   @unique
-  otp       Int    @default(1)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  adminId     Int
-  admin       Admin     @relation(fields: [adminId], references: [id])
-
-  @@index([adminId], map: "model Subadmin_adminId_fkey")
+  type       String    @default("")
+  price      String    @default("")
+  plan       String    @default("")
+  status     String    @default("pending")
+  created_at   DateTime @default(now()) @db.Timestamp(0)
+  updated_at   DateTime @default(now()) @db.Timestamp(0)
 }
 
 
@@ -77,7 +74,7 @@ model User {
   checkup             String           @default("")
   report              String           @default("")
   insurance           String           @default("")
-  text           String           @default("")
+  text                String           @default("")
   health_id           String           @default("name1234")
   passkey             String           @default("")
   time_zone           String           @default("UTC")
@@ -105,3 +102,5 @@ model User_relatives {
 
   @@index([userId], map: "User_relatives_userId_fkey")
 }
+
+

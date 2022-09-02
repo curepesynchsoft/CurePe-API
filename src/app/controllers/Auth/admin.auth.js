@@ -163,15 +163,29 @@ const user_details = async (request, reply) => {
         id: Number(id
         )
       }
-      // where: {
-      //   userId: request.query.userId,
-      // },
+      
     })
     reply.send({ data: return_data });
   } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+
+const policies = async (request, reply) => {
+  let response = []
+  //try {
+  const new_policy = {
+    type: request.body.type,
+    price: request.body.price,
+    plan: request.body.plan,
+    status: request.body.status,
+  };
+  //Required fields
+  response.policies = await subadmin_model.create(new_policy)
+  return reply.send({ data: { ...response } });
+}
+
+
 
 // update user values
 
@@ -182,5 +196,6 @@ const user_details = async (request, reply) => {
     update_admin,
     add_subadmin,
     per_member_details,
-    user_details
+    user_details,
+    policies
   }

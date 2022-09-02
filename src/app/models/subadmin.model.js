@@ -1,7 +1,7 @@
 const Repository = require("./core/repository");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const model = prisma.Subadmin;
+const model = prisma.SubscriptionPlan;
 /**
  *
  * @param data

@@ -41,6 +41,10 @@ module.exports = function (fastify, opts, done) {
     // schema: schema.per_member,
     handler: controller.user_details,
   });
+  fastify.post("/policies_details", {
+    schema: schema.policies_details,
+    handler: controller.policies,
+  });
 
 
   // fastify.post('/update-details', {

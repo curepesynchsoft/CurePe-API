@@ -55,11 +55,22 @@ const add_subadmin_schema = {
 const perticular_member = {
     type: 'object',
     properties: {
-    userId: { type: 'integer', default: '1' },
+        userId: { type: 'integer', default: '1' },
     },
     required: ['userId'],
+};
+const add_policies = {
+    type: 'object',
+    properties: {
+        type: { type: 'string', default: 'basic' },
+        price: {
+            type: 'string', default: 'price'
+        },
+        plan: { type: 'string', example: 'plan' },
+        status: { type: 'string', example: 'status' }
+    },
+    required: ['type', 'price', 'plan','status'],
 }
-
 
 
 module.exports = {
@@ -104,10 +115,17 @@ module.exports = {
     per_member: {
         summary: 'user member details',
         description: 'member details',
-        tags: ['Admin'],
+        // tags: ['Admin'],
         body: perticular_member,
         response: response_mediums
         
+    },
+    policies_details: {
+        summary: 'Add policies for users',
+        description: 'member details',
+        tags: ['Admin'],
+        body: add_policies,
+        response: response_mediums
     }
 
 }
