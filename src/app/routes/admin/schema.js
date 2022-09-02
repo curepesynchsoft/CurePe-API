@@ -62,14 +62,15 @@ const perticular_member = {
 const add_policies = {
     type: 'object',
     properties: {
-        type: { type: 'string', default: 'basic' },
-        price: {
+        userId: { type: 'integer', default: '1' },
+        mobile: {
             type: 'string', default: 'price'
         },
-        plan: { type: 'string', example: 'plan' },
-        status: { type: 'string', example: 'status' }
+        paid: { type: 'string', example: 'no' },
+        enabled: { type: 'string', example: 'one month' },
+        status:{type:'string',example:'pending'},
     },
-    required: ['type', 'price', 'plan','status'],
+    required: ['userId', 'mobile', 'paid','enabled'],
 }
 
 

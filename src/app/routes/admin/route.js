@@ -45,7 +45,16 @@ module.exports = function (fastify, opts, done) {
     schema: schema.policies_details,
     handler: controller.policies,
   });
+  fastify.get("/policies_all", {
+    handler: controller.getpolicies,
+  });
 
+  // Get User List
+  fastify.get("/allpolicies", {
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve,
+    handler: controller.getpolicies,
+  });
 
   // fastify.post('/update-details', {
   //   schema: schema.

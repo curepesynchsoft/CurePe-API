@@ -175,15 +175,25 @@ const policies = async (request, reply) => {
   let response = []
   //try {
   const new_policy = {
-    type: request.body.type,
-    price: request.body.price,
-    plan: request.body.plan,
-    status: request.body.status,
+    userId: request.body.userId,
+    mobile: request.body.mobile,
+    paid: request.body.paid,
+    enabled: request.body.enabled,
+    status:request.body.status,
   };
   //Required fields
   response.policies = await subadmin_model.create(new_policy)
   return reply.send({ data: { ...response } });
-}
+};
+
+const getpolicies = async (request, reply) => {
+  try {
+    const user_data = await subadmin_model.findMany(request.body);
+    reply.send({ data: user_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 
 
 
@@ -197,5 +207,6 @@ const policies = async (request, reply) => {
     add_subadmin,
     per_member_details,
     user_details,
-    policies
+    policies,
+    getpolicies
   }
