@@ -65,10 +65,23 @@ const findManyWithRelationship = async (
     );
 };
 
+
+/**
+ *
+ * @param whereClause
+ * @param data
+ * @returns {Promise<Query|*>}
+ */
+const remove = async (whereClause, data) => {
+    const repository = new Repository(prisma, model);
+    return repository.delete({ ...whereClause, id: whereClause.id }, data);
+};
+
 module.exports = {
     create,
     update,
     findUnique,
     findMany,
     findManyWithRelationship,
+    remove,
 };

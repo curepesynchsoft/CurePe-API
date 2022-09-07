@@ -98,6 +98,7 @@ module.exports = function (fastify, opts, done) {
     controller.upload_report
   );
   
+  
   done();
 
 };

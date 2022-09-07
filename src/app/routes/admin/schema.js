@@ -7,7 +7,7 @@ const { required } = require("nodemon/lib/config");
 const admin_login_schema = {
     type: 'object',
     properties: {
-        phone: { type: 'string', example: '+919876543210'}
+        phone: { type: 'string', example: '+919876543210' }
     },
     required: ['phone']
 };
@@ -23,33 +23,34 @@ const verify_otp_schema = {
 
 const admin_update_schema = {
     type: 'object',
-    properties:{
-        full_name:{type:'string', default:'Pragati'},
-        phone :{type:'string', default: '+919876543210'}
+    properties: {
+        full_name: { type: 'string', default: 'Pragati' },
+        phone: { type: 'string', default: '+919876543210' }
     },
-    required: ['full_name','phone']
+    required: ['full_name', 'phone']
 };
 const add_member_schema = {
-    type:'object',
+    type: 'object',
     properties: {
-        full_name: { type:'string', default:'Pragati Tiwari'},
-        phone: { type: 'string',default:'+918765432123'},
-        otp: { type:'string', default:'123456'},
+        full_name: { type: 'string', default: 'Pragati Tiwari' },
+        phone: { type: 'string', default: '+918765432123' },
+        otp: { type: 'string', default: '123456' },
         // dob: {type:'string',default:'01/01/2000'},
         // relation: {type: 'string', default:'sister'},
         // health_id: {type:'string', default:'name123'}
     },
-    required:['full_name','phone','otp'],
+    required: ['full_name', 'phone', 'otp'],
 }
 
 const add_subadmin_schema = {
     type: 'object',
     properties: {
         full_name: { type: 'string', default: 'Atul' },
-        phone: { type: 'string', default: '+ 919651964208'
+        phone: {
+            type: 'string', default: '+ 919651964208'
+        },
+        otp: { type: 'number', example: '591215' }
     },
-    otp: { type: 'number', example: '591215' }
-},
     required: ['full_name', 'phone', 'otp'],
 }
 const perticular_member = {
@@ -62,15 +63,33 @@ const perticular_member = {
 const add_policies = {
     type: 'object',
     properties: {
-        type: { type: 'string', default: 'basic' },
-        price: {
-            type: 'string', default: 'price'
+        userId: { type: 'integer', default: '1' },
+        mobile: {
+            type: 'string', default: '1234567890'
         },
-        plan: { type: 'string', example: 'plan' },
-        status: { type: 'string', example: 'status' }
+        paid: { type: 'string', example: 'no' },
+        enabled: { type: 'string', example: 'one month' },
     },
-    required: ['type', 'price', 'plan','status'],
+    required: ['userId', 'mobile', 'paid', 'enabled'],
 }
+
+const update_policy_schema = {
+    type: 'object',
+    properties: {
+        userId: { type: 'integer', default: '1' },
+        mobile: { type: 'string', default: '+919876543210' },
+        paid: { type: 'string', default: 'yes' },
+        enabled: { type: 'string', default: 'enable for 1 mooonth' }
+    },
+    required: ['userId', 'mobile', 'paid', 'enabled']
+};
+const enabled = {
+    type: 'object',
+    properties: {
+        status: { type: 'string', default: 'true' },
+    },
+    required: ['status']
+};
 
 
 module.exports = {
@@ -81,9 +100,8 @@ module.exports = {
         body: admin_login_schema,
         response: response_mediums
     },
-
-    verify_admin_otp:{
-        description:'Mobile Login',
+    verify_admin_otp: {
+        description: 'Mobile Login',
         tags: ['Admin'],
         summary: 'Mobile Login Endpoint for all the Login process related to mobile number',
         body: verify_otp_schema,
@@ -91,9 +109,9 @@ module.exports = {
     },
     update: {
         summary: 'Update admin details with the help of token.',
-        description:'Update admin Data',
+        description: 'Update admin Data',
         tags: ['Admin'],
-        headers:header_mediums,
+        headers: header_mediums,
         body: admin_update_schema,
         response: response_mediums
     },
@@ -118,7 +136,7 @@ module.exports = {
         // tags: ['Admin'],
         body: perticular_member,
         response: response_mediums
-        
+
     },
     policies_details: {
         summary: 'Add policies for users',
@@ -126,6 +144,32 @@ module.exports = {
         tags: ['Admin'],
         body: add_policies,
         response: response_mediums
+    },
+
+    update_policy: {
+        summary: 'Update admin details with the help of token.',
+        description: 'Update data of policy',
+        tags: ['Admin'],
+        // headers: header_mediums,
+        body: update_policy_schema,
+        response: response_mediums
+    },
+    update_enabled: {
+        summary: 'enable policy details',
+        description: 'update policy statuss',
+        tags: ['Admin'],
+        // headers: header_mediums,
+        body: enabled,
+        response: response_mediums
+    },
+
+    delete_policy: {
+        description: 'Get the User details',
+        tags: ['Admin'],
+        summary: 'Get all the User details',
+        // headers: header_mediums,
+        response: response_mediums
     }
+
 
 }

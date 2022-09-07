@@ -8,24 +8,25 @@ datasource db {
 }
 
 model Admin {
-  id        Int    @id @default(autoincrement())
-  full_name String
-  phone     String @unique
-  otp       Int    @default(1)
+  id                  Int              @id @default(autoincrement())
+  full_name           String
+  phone               String           @unique
+  otp                 Int              @default(1)
   time_zone           String           @default("UTC")
   remember_token      Boolean          @default(false)
   verified            Boolean          @default(false)
   skipped_preferences Boolean          @default(false)
   has_preferences     Boolean          @default(false)
-
 }
 
 model SubscriptionPlan {
   id         Int      @id @default(autoincrement())
-  type       String    @default("")
-  price      String    @default("")
-  plan       String    @default("")
+  userId     Int
+  mobile     String    @default("")
+  paid       String    @default("")
+  enabled    String    @default("")
   status     String    @default("pending")
+  user       User      @relation(fields: [userId], references: [id])
   created_at   DateTime @default(now()) @db.Timestamp(0)
   updated_at   DateTime @default(now()) @db.Timestamp(0)
 }
@@ -85,6 +86,7 @@ model User {
   created_at          DateTime         @default(now())
   updated_at          DateTime         @updatedAt
   user_relatives      User_relatives[]
+  subscriptionPlan    SubscriptionPlan[]
 }
 
 model User_relatives {

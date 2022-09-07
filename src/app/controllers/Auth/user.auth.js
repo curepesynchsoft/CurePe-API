@@ -92,9 +92,6 @@ const verify_through_otp = async (request, reply) => {
 // update user values
 const update_User = async (request, reply) => {
   try {
-    if (request.body.full_name == "") {
-      return reply.code(400).send({ error: "field required" });
-    }
     const update_document = {
       full_name: request.body.full_name,
       gender: request.body.gender,

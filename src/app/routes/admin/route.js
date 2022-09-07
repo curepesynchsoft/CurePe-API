@@ -4,7 +4,7 @@ const schema = require("../admin/schema");
 module.exports = function (fastify, opts, done) {
 
 
-    //Admin login
+  //Admin login
   fastify.post("/admin-login", {
     schema: schema.admin_login,
     handler: controller.admin_login,
@@ -17,9 +17,9 @@ module.exports = function (fastify, opts, done) {
   });
 
   //Update Admin
-  fastify.post("/update_admin",{
+  fastify.post("/update_admin", {
     onRequest: [fastify.authenticate],
-    schema:schema.update,
+    schema: schema.update,
     handler: controller.update_admin,
   });
   // Get User List
@@ -45,10 +45,34 @@ module.exports = function (fastify, opts, done) {
     schema: schema.policies_details,
     handler: controller.policies,
   });
+  fastify.get("/policies_all", {
+    handler: controller.getpolicies,
+  });
 
+  // Get User List
+  fastify.get("/allpolicies", {
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve,
+    handler: controller.getpolicies,
+  });
 
+  fastify.post("/update_policy/:id", {
+    // onRequest: [fastify.authenticate],
+    schema: schema.update_policy,
+    handler: controller.update_policy
+  });
   // fastify.post('/update-details', {
   //   schema: schema.
   // });
+  fastify.get("/delete_policy/:id", {
+    schema: schema.delete_policy,
+    handler: controller.delete_policy,
+  });
+  fastify.post("/enable-policy/:id", {
+    // onRequest: [fastify.authenticate],
+    schema: schema.update_enabled,
+    handler: controller.enabled
+  });
   done();
 }
+
