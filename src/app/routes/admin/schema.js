@@ -59,7 +59,7 @@ const perticular_member = {
         userId: { type: 'integer', default: '1' },
     },
     required: ['userId'],
-};
+}
 const add_policies = {
     type: 'object',
     properties: {
@@ -82,14 +82,15 @@ const update_policy_schema = {
         enabled: { type: 'string', default: 'enable for 1 mooonth' }
     },
     required: ['userId', 'mobile', 'paid', 'enabled']
-};
-const enabled = {
-    type: 'object',
-    properties: {
-        status: { type: 'string', default: 'true' },
-    },
-    required: ['status']
-};
+}
+
+// const enabled_data = {
+//     type: 'object',
+//     properties: {
+//         status: { type: 'string', default: 'true' }
+//     },
+//     required: ['status']
+// };
 
 
 module.exports = {
@@ -156,10 +157,16 @@ module.exports = {
     },
     update_enabled: {
         summary: 'enable policy details',
-        description: 'update policy statuss',
+        description: 'update policy status',
         tags: ['Admin'],
-        // headers: header_mediums,
-        body: enabled,
+        // body: enabled_data,
+        response: response_mediums
+    },
+    update_disable: {
+        summary: 'enable policy details',
+        description: 'update policy status',
+        tags: ['Admin'],
+        // body: enabled_data,
         response: response_mediums
     },
 
@@ -169,7 +176,5 @@ module.exports = {
         summary: 'Get all the User details',
         // headers: header_mediums,
         response: response_mediums
-    }
-
-
+    },
 }

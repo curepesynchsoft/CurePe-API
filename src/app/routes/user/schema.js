@@ -139,13 +139,6 @@ module.exports = {
         headers: header_mediums,
         response: response_mediums,
     },
-    // retrieve_uploads: {
-    //     description: "Retrieve details for " + schema_group_name,
-    //     tags: schema_group_tag,
-    //     summary: "Retrieve details for " + schema_group_name,
-    //     // headers: header_mediums,
-    //     response: response_mediums,
-    // },
     add_member: {
         summary: 'User can add their family member with the help of their unique generated token',
         description:'add member Data',
@@ -161,13 +154,7 @@ module.exports = {
         headers: header_mediums,
         response: response_mediums
     },
-    // retrieve_all_particular_members: {
-    //     description: 'Get the User details',
-    //     tags: ['Authentication'],
-    //     summary: 'Retrieve all members details with the help of any token',
-    //     headers: header_mediums,
-    //     response: response_mediums
-    // },
+   
     all_particular_members: {
         description: 'Get the User details',
         tags: ['Authentication'],

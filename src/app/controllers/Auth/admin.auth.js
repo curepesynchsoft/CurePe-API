@@ -231,19 +231,26 @@ const delete_policy = async (request, reply)=>{
 //   res.json(post)
 // }
 
-const enabled = async (request, reply) => {
+const enabled_policy = async (request, reply) => {
+  try {
     const { id } = request.params;
-    const update_document = {
-      status: request.body.status,
-  };
-  console.log(update_document);
-    const enable = await subadmin_model.update(
-    {
-      id: Number(id) 
-      }, update_document);
-  
+    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'true' });
     // return the response here
-  return reply.send({ data: enable });
+    return reply.send({ data: { enable } });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  } 
+};
+
+const disable_policy = async (request, reply) => {
+  try {
+    const { id } = request.params;
+    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'false' });
+    // return the response here
+    return reply.send({ data: { enable } });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
 };
 // update user values
 
@@ -259,5 +266,6 @@ module.exports = {
   getpolicies,
   update_policy,
   delete_policy,
-  enabled
+  enabled_policy,
+  disable_policy
 }

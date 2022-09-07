@@ -61,9 +61,6 @@ module.exports = function (fastify, opts, done) {
     schema: schema.update_policy,
     handler: controller.update_policy
   });
-  // fastify.post('/update-details', {
-  //   schema: schema.
-  // });
   fastify.get("/delete_policy/:id", {
     schema: schema.delete_policy,
     handler: controller.delete_policy,
@@ -71,7 +68,12 @@ module.exports = function (fastify, opts, done) {
   fastify.post("/enable-policy/:id", {
     // onRequest: [fastify.authenticate],
     schema: schema.update_enabled,
-    handler: controller.enabled
+    handler: controller.enabled_policy
+  });
+  fastify.post("/disable-policy/:id", {
+    // onRequest: [fastify.authenticate],
+    schema: schema.update_disable,
+    handler: controller.disable_policy
   });
   done();
 }
