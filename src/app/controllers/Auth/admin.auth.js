@@ -223,12 +223,13 @@ const update_policy = async (request, reply) => {
       paid: request.body.paid,
       enabled: request.body.enabled
     };
+    console.log(update_document);
     const user = await subadmin_model.update({ 
-      where: {id: Number(id)}
+      id: Number(id)
      }, update_document);
   
     // return the response here
-    return reply.send({ data: { user } });
+    return reply.send({ data:  user  });
   } catch (error) {
     return reply.code(400).send({ error: { ...error } });
   }
