@@ -83,7 +83,7 @@ const update_policy_schema = {
         paid: { type: 'string', default: 'yes' },
         enabled: { type: 'string', default: 'enable for 1 mooonth' }
     },
-    required: ['userId', 'mobile', 'paid', 'enabled']
+    required: ['userId', 'mobile','amount', 'paid', 'enabled']
 }
 
 // const enabled_data = {

@@ -56,7 +56,7 @@ module.exports = function (fastify, opts, done) {
     handler: controller.getpolicies,
   });
 
-  fastify.post("/update_policy/:id", {
+  fastify.patch("/update_policy/:id", {
     // onRequest: [fastify.authenticate],
     schema: schema.update_policy,
     handler: controller.update_policy
