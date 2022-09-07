@@ -194,24 +194,43 @@ const getpolicies = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
+// const update_policy = async (request, reply) => {
+//   const { id } = request.params
+//   const userr = await subadmin_model.update({
+//     where: {
+//       id :Number(id)
+//     }
+//     }, {
+//     userId: request.body.userId,
+//     mobile: request.body.mobile,
+//     paid: request.body.paid,
+//     enabled: request.body.enabled
+//   });
+//   console.log(userr);
+//   // return the response here
+//   return reply.send({ data: userr });
+//   // } catch (error) {
+//   //   return reply.code(400).send({ error: { ...error } });
+//   // }
+// };
 const update_policy = async (request, reply) => {
-  const { id } = request.params
-  const userr = await subadmin_model.update({
-    where: {
-      id :Number(id)
-    }
-    }, {
-    userId: request.body.userId,
-    mobile: request.body.mobile,
-    paid: request.body.paid,
-    enabled: request.body.enabled
-  });
-  console.log(userr);
-  // return the response here
-  return reply.send({ data: userr });
-  // } catch (error) {
-  //   return reply.code(400).send({ error: { ...error } });
-  // }
+  try {
+    const { id } = request.params;
+    const update_document = {
+      userId: request.body.userId,
+      mobile: request.body.mobile,
+      paid: request.body.paid,
+      enabled: request.body.enabled
+    };
+    const user = await subadmin_model.update({ 
+      where: {id: Number(id)}
+     }, update_document);
+  
+    // return the response here
+    return reply.send({ data: { user } });
+  } catch (error) {
+    return reply.code(400).send({ error: { ...error } });
+  }
 };
 const delete_policy = async (request, reply)=>{
   const { id } = request.params;
@@ -234,7 +253,7 @@ const delete_policy = async (request, reply)=>{
 const enabled_policy = async (request, reply) => {
   try {
     const { id } = request.params;
-    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'true' });
+    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'enable' });
     // return the response here
     return reply.send({ data: { enable } });
   } catch (error) {
@@ -245,7 +264,7 @@ const enabled_policy = async (request, reply) => {
 const disable_policy = async (request, reply) => {
   try {
     const { id } = request.params;
-    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'false' });
+    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'disable' });
     // return the response here
     return reply.send({ data: { enable } });
   } catch (error) {
