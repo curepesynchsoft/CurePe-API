@@ -87,6 +87,10 @@ model User {
   updated_at          DateTime         @updatedAt
   user_relatives      User_relatives[]
   subscriptionPlan    SubscriptionPlan[]
+<<<<<<< HEAD
+=======
+
+>>>>>>> d9ae35502aa111355abbbb013f1951a161aa46d1
 }
 
 model User_relatives {
