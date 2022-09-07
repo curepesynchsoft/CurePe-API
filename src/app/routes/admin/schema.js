@@ -79,6 +79,7 @@ const update_policy_schema = {
     properties: {
         userId: { type: 'integer', default: '1' },
         mobile: { type: 'string', default: '+919876543210' },
+        amount: { type: 'string', default: '120.3' },
         paid: { type: 'string', default: 'yes' },
         enabled: { type: 'string', default: 'enable for 1 mooonth' }
     },

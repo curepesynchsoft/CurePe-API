@@ -220,14 +220,15 @@ const update_policy = async (request, reply) => {
     const update_document = {
       userId: request.body.userId,
       mobile: request.body.mobile,
+      amount: request.body.amount,
       paid: request.body.paid,
       enabled: request.body.enabled
     };
     console.log(update_document);
     const user = await subadmin_model.update({ 
       id: Number(id)
-     }, update_document);
-  
+    }, update_document);
+    
     // return the response here
     return reply.send({ data:  user  });
   } catch (error) {
