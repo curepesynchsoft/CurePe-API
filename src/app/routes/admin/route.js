@@ -64,7 +64,7 @@ module.exports = function (fastify, opts, done) {
   // fastify.post('/update-details', {
   //   schema: schema.
   // });
-  fastify.get("/delete_policy/:id", {
+  fastify.put("/delete_policy/:id", {
     schema: schema.delete_policy,
     handler: controller.delete_policy,
   });
