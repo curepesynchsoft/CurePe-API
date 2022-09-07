@@ -67,6 +67,7 @@ const add_policies = {
         mobile: {
             type: 'string', default: '1234567890'
         },
+        amount: { type: 'string', example: '123.0' },
         paid: { type: 'string', example: 'no' },
         enabled: { type: 'string', example: 'one month' },
     },

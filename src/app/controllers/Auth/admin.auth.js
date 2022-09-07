@@ -177,6 +177,7 @@ const policies = async (request, reply) => {
   const new_policy = {
     userId: request.body.userId,
     mobile: request.body.mobile,
+    amount: request.body.amount,
     paid: request.body.paid,
     enabled: request.body.enabled,
     status: request.body.status,
@@ -253,7 +254,7 @@ const delete_policy = async (request, reply)=>{
 const enabled_policy = async (request, reply) => {
   try {
     const { id } = request.params;
-    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'enable' });
+    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'enabled' });
     // return the response here
     return reply.send({ data: { enable } });
   } catch (error) {
@@ -264,7 +265,7 @@ const enabled_policy = async (request, reply) => {
 const disable_policy = async (request, reply) => {
   try {
     const { id } = request.params;
-    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'disable' });
+    const enable = await subadmin_model.update({ id: Number(id) }, { status: 'disabled' });
     // return the response here
     return reply.send({ data: { enable } });
   } catch (error) {
