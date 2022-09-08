@@ -278,7 +278,7 @@ const disable_policy = async (request, reply) => {
 
 const add_members = async (request, reply) => {
   let response = []
-  try {
+  // try {
     const new_member = {
       userId: request.body.userId,
       full_name: request.body.full_name,
@@ -295,9 +295,9 @@ const add_members = async (request, reply) => {
     response.add_members = await user_relative_model.create(new_member)
     return reply.send({ data: { ...response } });
     
-  } catch (error) {
-    return reply.code(404).send({ error: { ...error } });
-  }
+  // } catch (error) {
+  //   return reply.code(404).send({ error: { ...error } });
+  // }
 };
 
 const delete_member = async (request, reply) => {
