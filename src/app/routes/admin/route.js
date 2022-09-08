@@ -75,6 +75,15 @@ module.exports = function (fastify, opts, done) {
     schema: schema.update_disable,
     handler: controller.disable_policy
   });
+  fastify.post("/add_member", {
+    schema: schema.add_member,
+    handler: controller.add_members,
+  });
+
+  fastify.post("/delete_member/:id", {
+    schema: schema.delete_member,
+    handler:controller.delete_member
+  })
   done();
 }
 

@@ -274,7 +274,41 @@ const disable_policy = async (request, reply) => {
     return reply.code(422).send({ error: { ...error } });
   }
 };
-// update user values
+
+
+const add_members = async (request, reply) => {
+  let response = []
+  try {
+    const new_member = {
+      userId: request.body.userId,
+      full_name: request.body.full_name,
+      phone: request.body.phone,
+      gender: request.body.gender,
+      dob: request.body.dob,
+      relation: request.body.relation,
+      health_id: request.body.health_id,
+    };
+    // Required fields
+    if (request.body.full_name == "" && request.body.phone == "" && request.body.dob == "" && request.body.gender == "" && request.body.relation == "") {
+      return reply.code(400).send({ error: "field required" });
+    }
+    response.add_members = await user_relative_model.create(new_member)
+    return reply.send({ data: { ...response } });
+    
+  } catch (error) {
+    return reply.code(404).send({ error: { ...error } });
+  }
+};
+
+const delete_member = async (request, reply) => {
+  const { id } = request.params;
+  const delete_plcy = await user_relative_model.remove(
+    { where: { id: Number(id) } }
+  );
+  return reply.send({ data: delete_plcy })
+}
+
+
 
 module.exports = {
   admin_login,
@@ -289,5 +323,7 @@ module.exports = {
   update_policy,
   delete_policy,
   enabled_policy,
-  disable_policy
+  disable_policy,
+  add_members,
+  delete_member
 }

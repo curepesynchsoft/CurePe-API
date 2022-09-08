@@ -86,14 +86,19 @@ const update_policy_schema = {
     required: ['userId', 'mobile','amount', 'paid', 'enabled']
 }
 
-// const enabled_data = {
-//     type: 'object',
-//     properties: {
-//         status: { type: 'string', default: 'true' }
-//     },
-//     required: ['status']
-// };
-
+const add_members_schema = {
+    type: 'object',
+    properties: {
+        userId: { type:'integer', default:'1' },
+        full_name: { type: 'string', default: 'Pragati Tiwari' },
+        phone: { type: 'string', default: '+918765432123' },
+        gender: { type: 'string', default: 'female' },
+        dob: { type: 'string', default: '01/01/2000' },
+        relation: { type: 'string', default: 'sister' },
+        health_id: { type: 'string', default: 'name123' }
+    },
+    required: ['full_name', 'phone', 'gender', 'dob', 'relation', 'health_id'],
+}
 
 module.exports = {
     admin_login: {
@@ -173,6 +178,21 @@ module.exports = {
     },
 
     delete_policy: {
+        description: 'Get the User details',
+        tags: ['Admin'],
+        summary: 'Get all the User details',
+        // headers: header_mediums,
+        response: response_mediums
+    },
+    add_member: {
+        summary: 'Admin can add family member mannually',
+        description: 'add member Data',
+        tags: ['Admin'],
+        // headers: header_mediums,
+        body: add_members_schema,
+        response: response_mediums
+    },
+    delete_member: {
         description: 'Get the User details',
         tags: ['Admin'],
         summary: 'Get all the User details',
