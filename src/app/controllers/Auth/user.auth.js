@@ -265,7 +265,7 @@ const upload_report = async (request, reply) => {
       path: filePath,
     });
     reply.send({ data: { media } });
-    if (type === 'profile') {
+    if (type === 'report') {
       await user_model.update({ id: reference_id }, {
         report: filePath,
       });
