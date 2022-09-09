@@ -280,16 +280,17 @@ const upload_report = async (request, reply) => {
 
 const get_reports = async (request, reply) => {
   // run a model
-  try {
-    const return_data = await report_model.findUnique({ id: request.user.id }, {
+  // try {
+    const return_data = await report_model.findMany({
       where: {
-        userId: request.userId,
+        reference_id: request.user.id,
       },
     })
+    // console.log({ data: return_data });
     reply.send({ data: { return_data } });
-  } catch (error) {
-    return reply.code(422).send({ error: { ...error } });
-  }
+  // } catch (error) {
+  //   return reply.code(422).send({ error: { ...error } });
+  // }
 };
 
 
