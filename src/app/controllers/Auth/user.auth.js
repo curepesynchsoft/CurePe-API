@@ -251,11 +251,11 @@ const upload_report = async (request, reply) => {
 
   // console.log(request.file);
   // run a model
-  const fileName = request.file.filename;
+  const filetype = request.body.filetype;
   const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
-  const image_type = request.query.image_type ?? "No Image Type Specified";
+  // const image_type = request.query.image_type ?? "No Image Type Specified";
 
   try {
     const media = await report_model.create({
@@ -263,6 +263,7 @@ const upload_report = async (request, reply) => {
       type: type,
       media_type: type,
       path: filePath,
+      filetype: filetype
     });
     reply.send({ data: { media } });
     if (type === 'report') {
@@ -273,6 +274,20 @@ const upload_report = async (request, reply) => {
     reply.send({ data: { media } });
   } catch (error) {
     console.log(error);
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
+
+const get_reports = async (request, reply) => {
+  // run a model
+  try {
+    const return_data = await report_model.findUnique({ id: request.user.id }, {
+      where: {
+        userId: request.userId,
+      },
+    })
+    reply.send({ data: { return_data } });
+  } catch (error) {
     return reply.code(422).send({ error: { ...error } });
   }
 };
@@ -292,5 +307,6 @@ module.exports = {
   upload_media,
   upload_report,
   per_member_details,
+  get_reports
 };
 

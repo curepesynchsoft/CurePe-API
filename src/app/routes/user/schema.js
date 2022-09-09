@@ -92,7 +92,11 @@ const upload_report = {
         type: "number",
         example: 1,
         description: "Reference Id for the Upload",
-      },
+        },
+        filetype: {
+            type: "string",
+            example: "jpg",
+        },
     },
 };
   
@@ -197,6 +201,13 @@ module.exports = {
         summary: "Retrieve details for " + schema_group_name,
         // headers: header_mediums,
         response: response_mediums,
+    },
+    retrieve_report: {
+        description: 'Get the User reports',
+        tags: ['Authentication'],
+        summary: 'Retrieve user report with the help of any token.',
+        headers: header_mediums,
+        response: response_mediums
     },
 
 };

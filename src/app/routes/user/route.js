@@ -97,7 +97,14 @@ module.exports = function (fastify, opts, done) {
     },
     controller.upload_report
   );
-  
+  // get report data 
+  fastify.get("/user-reports", {
+    // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
+    onRequest: [fastify.authenticate],
+    schema: schema.retrieve_report,
+    handler: controller.get_reports,
+
+  });
   
   done();
 
