@@ -293,6 +293,22 @@ const get_reports = async (request, reply) => {
   // }
 };
 
+// const delete_report = async (request, reply) => {
+//   const id = request.body.id;
+//   const return_dat = await report_model.findMany({
+//     where: {
+//       reference_id:request.user.id,
+//     },
+//   })
+// }
+const delete_report = async (request, reply) => {
+  const id = request.params;
+  const delete_plcy = await report_model.remove(
+    { where: { id:request.body.id } }
+  );
+  return reply.send({ data: delete_plcy })
+}
+
 
 
 module.exports = {
@@ -308,6 +324,7 @@ module.exports = {
   upload_media,
   upload_report,
   per_member_details,
-  get_reports
+  get_reports,
+  delete_report
 };
 

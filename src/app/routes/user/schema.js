@@ -100,13 +100,13 @@ const upload_report = {
     },
 };
   
-// const parse = {
-//     type: 'object',
-//     properties: {
-//         text: { type: 'test', default: 'abcd' },
-//     },
-//     required: ['userId'],
-// }
+const delete_report_schema = {
+    type: 'object',
+    properties: {
+        id: { type: 'integer', default: '1' },
+    },
+    required: ['id'],
+}
 
 
 module.exports = {
@@ -207,6 +207,14 @@ module.exports = {
         tags: ['Authentication'],
         summary: 'Retrieve user report with the help of any token.',
         headers: header_mediums,
+        response: response_mediums
+    },
+    delete_report: {
+        summary: 'Delete user report',
+        description: 'Update User Data',
+        tags: ['Authentication'],
+        headers: header_mediums,
+        body: delete_report_schema,
         response: response_mediums
     },
 
