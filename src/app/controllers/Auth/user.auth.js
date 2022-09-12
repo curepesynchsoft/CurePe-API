@@ -280,7 +280,7 @@ const upload_report = async (request, reply) => {
 
 const get_reports = async (request, reply) => {
   // run a model
-  // try {
+  try {
     const return_data = await report_model.findMany({
       where: {
         reference_id: request.user.id,
@@ -288,9 +288,9 @@ const get_reports = async (request, reply) => {
     })
     // console.log({ data: return_data });
     reply.send({ data: { return_data } });
-  // } catch (error) {
-  //   return reply.code(422).send({ error: { ...error } });
-  // }
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
 };
 
 // const delete_report = async (request, reply) => {
@@ -302,11 +302,16 @@ const get_reports = async (request, reply) => {
 //   })
 // }
 const delete_report = async (request, reply) => {
-  const id = request.params;
-  const delete_plcy = await report_model.remove(
-    { where: { id:request.body.id } }
-  );
-  return reply.send({ data: delete_plcy })
+  try {
+    const id = request.params;
+    const delete_plcy = await report_model.remove(
+      { where: { id: request.body.id } }
+    );
+    return reply.send({ data: delete_plcy })
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+ 
 }
 
 
