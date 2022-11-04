@@ -110,7 +110,10 @@ module.exports = function (fastify, opts, done) {
     schema: schema.delete_report,
     handler: controller.delete_report,
   });
-  
+  fastify.post('/pdfextract', {
+    schema: schema.reportt,
+    handler: controller.extract
+  });
   done();
 
 };

@@ -82,7 +82,12 @@ module.exports = function (fastify, opts, done) {
 
   fastify.post("/delete_member/:id", {
     schema: schema.delete_member,
-    handler:controller.delete_member
+    handler: controller.delete_member
+  });
+
+  fastify.post('/add_demo_data', {
+    schema: schema.add_demo,
+    handler: controller.new_test
   })
   done();
 }

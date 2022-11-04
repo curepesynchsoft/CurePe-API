@@ -184,8 +184,22 @@ const policies = async (request, reply) => {
   };
   //Required fields
   response.policies = await subadmin_model.create(new_policy)
-  return reply.send({ data: { ...response } });
+  return reply.send({ data: { response } });
 };
+
+// demo
+const new_test = async (request, reply) => {
+  let demo_data = []
+  const add_demo_data = {
+    full_name: request.body.full_name,
+    phone: request.body.phone,
+    gender: request.body.gender
+  }
+  console.log(add_demo_data);
+  response.new_test = await user_model.create(add_demo_data)
+  return reply.send({ data: { ...response } });
+}
+// end demo
 
 const getpolicies = async (request, reply) => {
   try {
@@ -235,6 +249,7 @@ const update_policy = async (request, reply) => {
     return reply.code(400).send({ error: { ...error } });
   }
 };
+
 const delete_policy = async (request, reply)=>{
   const { id } = request.params;
   const delete_plcy= await subadmin_model.remove(
@@ -325,5 +340,7 @@ module.exports = {
   enabled_policy,
   disable_policy,
   add_members,
-  delete_member
+  delete_member,
+  new_test
+
 }

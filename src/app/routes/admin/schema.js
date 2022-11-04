@@ -100,6 +100,20 @@ const add_members_schema = {
     required: ['full_name', 'phone', 'gender', 'dob', 'relation', 'health_id'],
 }
 
+const demo_add_schema = {
+    type: 'object',
+    properties: {
+        full_name: { type: 'string', default: '1' },
+        phone: {
+            type:'string', default:'0987654321'
+        },
+        gender: {
+            type:'string', default:'Male/f'
+        }
+    },
+    required:['full_name','phone','gender'],
+}
+
 module.exports = {
     admin_login: {
         description: 'Admin_login',
@@ -199,4 +213,15 @@ module.exports = {
         // headers: header_mediums,
         response: response_mediums
     },
+
+
+    add_demo: {
+        description: 'For demo',
+        tags: ['Admin'],
+        summary: 'this is demo add user',
+        body: demo_add_schema,
+        response:response_mediums
+    }
+
+
 }

@@ -108,6 +108,16 @@ const delete_report_schema = {
     required: ['id'],
 }
 
+// const report_schema = {
+//     type: 'object',
+//     properties: {
+//         path: {
+//             type: 'integer',
+//             default:'frgr'
+//         }
+//     }
+// }
+
 
 module.exports = {
 
@@ -217,5 +227,11 @@ module.exports = {
         body: delete_report_schema,
         response: response_mediums
     },
+    reportt: {
+        summary: "extract text from pdf",
+        description: 'pdf extract',
+        // body: report_schema,
+        response: response_mediums
+    }
 
 };
