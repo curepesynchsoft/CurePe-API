@@ -83,7 +83,13 @@ module.exports = function (fastify, opts, done) {
   fastify.post("/delete_member/:id", {
     schema: schema.delete_member,
     handler:controller.delete_member
-  })
+  });
+  // Get User List
+  fastify.get("/allsubadmin", {
+    onRequest: [fastify.authenticate],
+    schema: schema.retrievesubadmin,
+    handler: controller.allsubadmin,
+  });
   done();
 }
 

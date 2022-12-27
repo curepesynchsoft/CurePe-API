@@ -199,4 +199,11 @@ module.exports = {
         // headers: header_mediums,
         response: response_mediums
     },
+    retrievesubadmin: {
+        description: 'Get the Sub admin details',
+        tags: ['Admin'],
+        summary: 'Get all the Sub Admin details',
+        headers: header_mediums,
+        response: response_mediums
+    },
 }
