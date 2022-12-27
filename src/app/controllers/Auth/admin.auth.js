@@ -128,22 +128,23 @@ const add_subadmin = async (request, reply) => {
     phone: request.body.phone,
     otp: request.body.otp,
   };
-  //all sub Admin
-  const allsubadmin = async (request, reply) => {
-    try {
-      const subadmin_data = await admin_model.findMany(request.body);
-      reply.send({ data: subadmin_data });
-    } catch (error) {
-      return reply.code(422).send({ error: { ...error } });
-    }
-  };
+  
 
   //Required fields
   response.add_subadmin = await admin_model.create(new_member)
   return reply.send({ data: { ...response } });
   // }
   //
-}
+};
+//all sub Admin
+const allsubadmin = async (request, reply) => {
+  try {
+    const subadmin_data = await admin_model.findMany(request.body);
+    reply.send({ data: subadmin_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 const per_member_details = async (request, reply) => {
   // run a model
   try {
