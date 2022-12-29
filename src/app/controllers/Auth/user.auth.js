@@ -96,6 +96,7 @@ const update_User = async (request, reply) => {
       full_name: request.body.full_name,
       gender: request.body.gender,
       dob: request.body.dob,
+      health_id: request.body.health_id,
     }
     const user = await user_model.update(
       { id: request.user.id },

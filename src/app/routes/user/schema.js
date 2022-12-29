@@ -43,13 +43,14 @@ const add_member_schema = {
 
 // update user schema
 const user_update_schema = {
-    type: 'object',
-    properties:{
-        full_name:{type:'string', default:'Pragati'},
-        gender:{type:'string', default:'female'},
-        dob:{type:'string' , default:'26/01/1999'},
-    },
-    required: ['full_name','gender','dob']
+  type: "object",
+  properties: {
+    full_name: { type: "string", default: "Pragati" },
+    gender: { type: "string", default: "female" },
+    dob: { type: "string", default: "26/01/1999" },
+    health_id: { type: "string", default: "8778087870987" },
+  },
+  required: ["full_name", "gender", "dob", "health_id"],
 };
 
 // Uplaod user profile schema 
