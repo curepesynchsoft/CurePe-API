@@ -13,7 +13,6 @@ let utilites = require('../../common-helpers/utilities')
 let messages = require('../../constants/messages')
 const response = require('../../routes/schemas/common/response')
 const multer = require('fastify-multer')
-const tesseract = require("node-tesseract-ocr")
 // const Tesseract= require('tesseract.js');
 // Mobile login with OTP
 const mobile_login = async (request, reply) => {
