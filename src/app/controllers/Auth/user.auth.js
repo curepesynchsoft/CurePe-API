@@ -1,8 +1,8 @@
 const { use } = require('bcrypt/promises')
-const HttpStatusCode = require('http-status-codes/index')
-const { PrismaClient } = require('@prisma/client')
+// const HttpStatusCode = require('http-status-codes/index')
+// const { PrismaClient } = require('@prisma/client')
 // import Model from the models directory
-const prisma = new PrismaClient()
+// const prisma = new PrismaClient()
 const user_model = require('../../models/user.model')
 const report_model = require('../../models/report.model')
 const user_relative_model = require('../../models/userRelative.model')
@@ -13,8 +13,8 @@ let utilites = require('../../common-helpers/utilities')
 let messages = require('../../constants/messages')
 const response = require('../../routes/schemas/common/response')
 const multer = require('fastify-multer')
-// const tesseract = require("node-tesseract-ocr")
-const Tesseract= require('tesseract.js');
+const tesseract = require("node-tesseract-ocr")
+// const Tesseract= require('tesseract.js');
 // Mobile login with OTP
 const mobile_login = async (request, reply) => {
   let response_payload = {}
@@ -332,8 +332,8 @@ const delete_report = async (request, reply) => {
 const extract = async (request, reply) => {
   // const rep = request.body.path
   // const extra = await report_model.findMany(
-  Tesseract.recognize(
-'mr.jpg',
+  tesseract.recognize(
+'https://tesseract.projectnaptha.com/img/eng_bw.png',
 'eng',
 { logger: m => console.log(m) }
 ).then(({ data: { text } }) => {

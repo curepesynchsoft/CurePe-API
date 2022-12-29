@@ -1,7 +1,7 @@
 # fastify-playground
-#Shree Ganesh, BoilerPlate for Fastify, with Prisma for ORM
+#Shree Ganesh, Fastify, with Prisma for ORM
 
-This Boiler Plate is really simple, All you need to change is to run few command and you will have a working API in no time.
+This is really simple, All you need to change is to run few command and you will have a working API in no time.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ A step by step series of examples that tell you how to get a development env run
 
 1. Change .environment-example to .env and setup like this
 
-    ```APP_NAME="Fastify BoilerPlate"``` -> Your app name
+    ```APP_NAME="CurePe"``` -> Your app name
     
     ```APP_ENV=local``` -> Your app environment (local, staging, production)
 

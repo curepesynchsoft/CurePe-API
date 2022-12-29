@@ -7,6 +7,7 @@ const schema = require("../user/schema");
  */
 module.exports = function (fastify, opts, done) {
 
+
   // generate OTP 
   fastify.post("/mobile-login", {
     schema: schema.mobile_login,

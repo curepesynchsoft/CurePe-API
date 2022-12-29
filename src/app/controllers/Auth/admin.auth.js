@@ -321,7 +321,16 @@ const delete_member = async (request, reply) => {
     { where: { id: Number(id) } }
   );
   return reply.send({ data: delete_plcy })
-}
+};
+
+const subadmins = async (request, reply) => {
+  try {
+    const user_data = await subadmin_model.findMany(request.body);
+    reply.send({ data: user_data });
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } });
+  }
+};
 
 
 
@@ -341,6 +350,6 @@ module.exports = {
   disable_policy,
   add_members,
   delete_member,
-  new_test
-
-}
+  new_test,
+  subadmins,
+};
