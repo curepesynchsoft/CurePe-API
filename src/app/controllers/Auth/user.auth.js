@@ -329,6 +329,21 @@ const delete_report = async (request, reply) => {
   }
 }
 
+const delete_member = async (request, reply) => {
+
+  try {
+     const dlt_mem = await user_relative_model.remove({
+    where: {
+      id: request.body.id
+    },
+  })
+  return reply.send({ data: dlt_mem });
+ 
+  } catch (error) {
+    return reply.code(422).send({ error: { ...error } })
+  }
+}
+
 const extract = async (request, reply) => {
   // const rep = request.body.path
   // const extra = await report_model.findMany(
@@ -357,4 +372,5 @@ module.exports = {
   get_reports,
   delete_report,
   extract,
-}
+  delete_member
+};

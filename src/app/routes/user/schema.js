@@ -107,7 +107,14 @@ const delete_report_schema = {
         id: { type: 'integer', default: '1' },
     },
     required: ['id'],
-}
+};
+const delete_mem_schema = {
+  type: "object",
+  properties: {
+    id: { type: "integer", default: "1" }
+  },
+  required: ["id"]
+};
 
 // const report_schema = {
 //     type: 'object',
@@ -121,118 +128,128 @@ const delete_report_schema = {
 
 
 module.exports = {
+  mobile_login: {
+    description: "Mobile Login",
+    tags: ["Authentication"],
+    required: true,
+    summary:
+      "Mobile Login Endpoint for all the Login process related to mobile number.",
+    body: mobile_login_schema,
+    response: response_mediums
+  },
+  verify_otp: {
+    description: "Mobile Login",
+    tags: ["Authentication"],
+    summary:
+      "Confirm mobile OTP for authentication. If user Exist They will get all their details and If not exist they have to update their details with the help of generated token",
+    body: verify_otp_schema,
+    response: response_mediums
+  },
+  update: {
+    summary: "Update user details with the help of token.",
+    description: "Update User Data",
+    tags: ["Authentication"],
+    headers: header_mediums,
+    body: user_update_schema,
+    response: response_mediums
+  },
+  uploads: {
+    description: "Media " + schema_group_name + " for the Curepe app",
+    tags: schema_group_tag,
+    tags: ["Authentication"],
+    summary: "Media " + schema_group_name,
+    querystring: upload_schema,
+    headers: header_mediums,
+    response: response_mediums
+  },
+  add_member: {
+    summary:
+      "User can add their family member with the help of their unique generated token",
+    description: "add member Data",
+    tags: ["Authentication"],
+    headers: header_mediums,
+    body: add_member_schema,
+    response: response_mediums
+  },
+  retrieve_all_particular_members: {
+    description: "Get the User details",
+    tags: ["Authentication"],
+    summary: "Retrieve all members details with the help of any token.",
+    headers: header_mediums,
+    response: response_mediums
+  },
 
-    mobile_login:{
-        description:'Mobile Login',
-        tags: ['Authentication'],
-        required: true,
-        summary: 'Mobile Login Endpoint for all the Login process related to mobile number.',
-        body: mobile_login_schema,
-        response: response_mediums
-    },
-    verify_otp:{
-        description:'Mobile Login',
-        tags: ['Authentication'],
-        summary: 'Confirm mobile OTP for authentication. If user Exist They will get all their details and If not exist they have to update their details with the help of generated token',
-        body: verify_otp_schema,
-        response: response_mediums
-    },
-    update: {
-        summary: 'Update user details with the help of token.',
-        description:'Update User Data',
-        tags: ['Authentication'],
-        headers:header_mediums,
-        body: user_update_schema,
-        response: response_mediums
-    },
-    uploads: {
-        description: "Media " + schema_group_name + " for the Curepe app",
-        tags: schema_group_tag,
-        tags: ['Authentication'],
-        summary: "Media " + schema_group_name,
-        querystring: upload_schema,
-        headers: header_mediums,
-        response: response_mediums,
-    },
-    add_member: {
-        summary: 'User can add their family member with the help of their unique generated token',
-        description:'add member Data',
-        tags: ['Authentication'],
-        headers:header_mediums,
-        body: add_member_schema,
-        response: response_mediums
-    },
-    retrieve_all_particular_members: {
-        description: 'Get the User details',
-        tags: ['Authentication'],
-        summary: 'Retrieve all members details with the help of any token.',
-        headers: header_mediums,
-        response: response_mediums
-    },
-   
-    all_particular_members: {
-        description: 'Get the User details',
-        tags: ['Authentication'],
-        summary: 'Retrieve all perticular members details with the help of any token',
-        headers: header_mediums,
-        response: response_mediums
-    },
-    retrieve_all_members: {
-        description: 'Get the User details',
-        summary: 'Retrieve all members details with the help of any token.',
-        // headers: header_mediums,
-        response: response_mediums
-    },
-    retrieve: {
-        description: 'Get the User details',
-        tags: ['Authentication'],
-        summary: 'Get all the User details',
-        headers: header_mediums,
-        response: response_mediums
-    },
-    retrieve_user: {
-        description: 'Get the User Details',
-        tags: ['Authentication'],
-        summary: 'Get User details',
-        headers: header_mediums,
-        response: response_mediums
-    },
-    uploads_report: {
-        description: "Report " + schema_group_name + " for the Curepe app",
-        tags: schema_group_tag,
-        tags: ['Authentication'],
-        summary: " " + schema_group_name,
-        querystring: upload_report,
-        headers: header_mediums,
-        response: response_mediums,
-    },
-    retrieve_report: {
-        description: "Retrieve details for " + schema_group_name,
-        tags: schema_group_tag,
-        summary: "Retrieve details for " + schema_group_name,
-        // headers: header_mediums,
-        response: response_mediums,
-    },
-    retrieve_report: {
-        description: 'Get the User reports',
-        tags: ['Authentication'],
-        summary: 'Retrieve user report with the help of any token.',
-        headers: header_mediums,
-        response: response_mediums
-    },
-    delete_report: {
-        summary: 'Delete user report',
-        description: 'Update User Data',
-        tags: ['Authentication'],
-        headers: header_mediums,
-        body: delete_report_schema,
-        response: response_mediums
-    },
-    reportt: {
-        summary: "extract text from pdf",
-        description: 'pdf extract',
-        // body: report_schema,
-        response: response_mediums
-    }
-
+  all_particular_members: {
+    description: "Get the User details",
+    tags: ["Authentication"],
+    summary:
+      "Retrieve all perticular members details with the help of any token",
+    headers: header_mediums,
+    response: response_mediums
+  },
+  retrieve_all_members: {
+    description: "Get the User details",
+    summary: "Retrieve all members details with the help of any token.",
+    // headers: header_mediums,
+    response: response_mediums
+  },
+  retrieve: {
+    description: "Get the User details",
+    tags: ["Authentication"],
+    summary: "Get all the User details",
+    headers: header_mediums,
+    response: response_mediums
+  },
+  retrieve_user: {
+    description: "Get the User Details",
+    tags: ["Authentication"],
+    summary: "Get User details",
+    headers: header_mediums,
+    response: response_mediums
+  },
+  uploads_report: {
+    description: "Report " + schema_group_name + " for the Curepe app",
+    tags: schema_group_tag,
+    tags: ["Authentication"],
+    summary: " " + schema_group_name,
+    querystring: upload_report,
+    headers: header_mediums,
+    response: response_mediums
+  },
+  retrieve_report: {
+    description: "Retrieve details for " + schema_group_name,
+    tags: schema_group_tag,
+    summary: "Retrieve details for " + schema_group_name,
+    // headers: header_mediums,
+    response: response_mediums
+  },
+  retrieve_report: {
+    description: "Get the User reports",
+    tags: ["Authentication"],
+    summary: "Retrieve user report with the help of any token.",
+    headers: header_mediums,
+    response: response_mediums
+  },
+  delete_report: {
+    summary: "Delete user report",
+    description: "Update User Data",
+    tags: ["Authentication"],
+    headers: header_mediums,
+    body: delete_report_schema,
+    response: response_mediums
+  },
+  delete_mem: {
+    summary: "Delete user report",
+    description: "Update User Data",
+    tags: ["Authentication"],
+    headers: header_mediums,
+    body: delete_mem_schema,
+    response: response_mediums
+  },
+  reportt: {
+    summary: "extract text from pdf",
+    description: "pdf extract",
+    // body: report_schema,
+    response: response_mediums
+  }
 };
