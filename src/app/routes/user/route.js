@@ -117,6 +117,12 @@ module.exports = function (fastify, opts, done) {
     schema: schema.delete_mem,
     handler: controller.delete_member
   });
+  fastify.post("/edit-member/:id", {
+    // add onRequest: [fastify.authenticate], if you want to add and prootect the api endpoint
+    onRequest: [fastify.authenticate],
+    schema: schema.edit_member,
+    handler: controller.edit_mem
+  });
   fastify.post('/pdfextract', {
     schema: schema.reportt,
     handler: controller.extract

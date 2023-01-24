@@ -125,6 +125,18 @@ const delete_mem_schema = {
 //         }
 //     }
 // }
+const edit_members_schema = {
+  type: "object",
+  properties: {
+    full_name: { type: "string", default: "Pragati Tiwari" },
+    phone: { type: "string", default: "+918765432123" },
+    gender: { type: "string", default: "female" },
+    dob: { type: "string", default: "01/01/2000" },
+    relation: { type: "string", default: "sister" },
+    health_id: { type: "string", default: "name123" }
+  },
+  required: ["full_name", "phone", "gender", "dob", "relation", "health_id"]
+};
 
 
 module.exports = {
@@ -250,6 +262,24 @@ module.exports = {
     summary: "extract text from pdf",
     description: "pdf extract",
     // body: report_schema,
+    response: response_mediums
+  },
+  edit_member: {
+    summary:
+      "User can add their family member with the help of their unique generated token",
+    description: "add member Data",
+    tags: ["Authentication"],
+    headers: header_mediums,
+    params: {
+      type: "object",
+      properties: {
+        id: {
+          type: "integer",
+          description: "User id"
+        }
+      }
+    },
+    body: edit_members_schema,
     response: response_mediums
   }
 };
