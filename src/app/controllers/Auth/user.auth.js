@@ -268,6 +268,8 @@ const upload_report = async (request, reply) => {
   const filePath = request.file.path;
   const type = request.query.media_type;
   const reference_id = request.query.reference_id;
+  const type_ins = request.body.type_ins;
+  const relation = request.body.relation
   // const image_type = request.query.image_type ?? "No Image Type Specified";
 
   try {
@@ -276,6 +278,8 @@ const upload_report = async (request, reply) => {
       type: type,
       media_type: type,
       path: filePath,
+      type_ins: type_ins,
+      relation:relation,
       filetype: filetype
     });
     reply.send({ data: { media } });
